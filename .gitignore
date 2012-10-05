@@ -9,6 +9,6 @@ sass.old
 source.old
 source/_stash
 source/stylesheets/screen.css
-source/_posts/*.markdown~
+source/*/*.markdown~
 vendor
 node_modules
