@@ -1,0 +1,49 @@
+---
+layout: post
+title: "制作，编译和使用静态库"
+date: 2012-05-18 12:47
+comments: true
+categories: [iphone, xcode]
+
+---
+
+很多情况下，我们从网上得到的是一个纯C的代码包，他们这些库，往往是各种平台通用，代码包`svn checkout`出来后，里面有`makefile`, `vcproject file` 等。
+
+但往往我们先README看过之后，通过  
+    ./configure make make install  
+来实现编译生成了一个库。（注意一些基本语法 ./confiure后如果带 --`prefix=/path/to/your/custom/dir` 表明自定义安装路径。）
+
+那么在这样的情况下，我们第一个首先会遇到的问题，就是这个库格式不兼容。
+
+我们添加了这个库到project后编译时，显示
+    this file format doesn't support (i386)。  
+             
+这个情况，是由于大部分snow leopard是INTEL DUO CPU，双核x86_64的，一般很多库，不加特别标注，都以为你开发了为MAC电脑开发程序，所以库都默认为x86_64位的静态库。如果你好奇，可以new一个MAC开发程序的project，试着看看那个库能不能正常编译，没有warning就知道了。
+
+当然，还有一个命令行来检测你编译的库，可以使用在什么平台架构下。
+方法如下：  
+    lipo -info /path/to/your/library.a
+
+即可看到此库位i386, x86_64, arm等等。
+
+<!-- more -->
+
+明白了上面的问题的产生原因，我们就好办了。 一般解决办法是这样的，在｀./configure｀ 之后加一点参数，比如 `CFLAG="-arch i386"`。GCC的path设定到SDK path以下的｀/usr/lib/gcc/i686｀ or ｀arm｀下。注意，SDK PATH，有两种，iphoneOs 和iphoneSimulator.有很大的区别！！
+
+好了。以上是第一个问题。随后，你编译成功，lipo检测版本也OK后，你可以*.a 静态库文件到Project了。记得选中复制到项目。
+
+再一个问题，也就是第二大问题，就是如何导入头文件。
+
+由于很多是C的代码，headers通常是这样使用的 ｀#include <xx.h>` 。如果我们这样使用，xcode直接报错，提示找不到这样的头文件。
+
+那我们该怎么办呢？我找了网上所有的文章，都一带而过。于是我很愚蠢的选择把头文件拷贝过来。然后一个个的改include 为import ,把< >语法，改为” “。并且，木有一个高手愿意说！我恨啊！！！
+
+其实可以使用这样的办法，就是在右击你的project 名，选择Get Info . 在build选项卡中，有search hearder path 选项。是让你告诉xcode去哪儿搜搜头文件。
+
+记住，这里如果你的库的安装路径是/usr/AAA的话，那AAA下肯定有include , lib两大文件夹。 那你在选项中，请直接填/usr/AAA，不需要多此一举选择到include文件夹中，苹果会自动替你搜索进去。
+
+这里有一个小细节，如果这样编译出错的话，请不要选中recursive ，否则可能导致头文件重复引用，导致error: expected '=', ',', ';', 'asm' or '__attribute__' before 这样的错误。
+
+至此，xcode的引用第三方库已经基本讲解结束了。一般来说，请不要相信那些片段，说什么让你设定library的path 。请记住，*.a的静态库，直接按照本文附件中的方法，添加文件到Project，不要偷懒直接引用path，会有很多意外的错误。
+
+refer to: <http://blog.csdn.net/pjk1129/article/details/7255163>
