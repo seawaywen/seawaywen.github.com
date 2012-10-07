@@ -7,17 +7,15 @@ title: "profile"
 
 <img class="right" src="https://8cxkya.bay.livefilestore.com/y1pmywwkPmaXBfXHeJBQ8X76GnCScrSZPaPoLSeaahGUXgBDAHMPO_tDiFlD6BddJHP_OGbW2MJFCfaFXHBB1AxiaoSyB56hzjS/author.jpg">
 
-A programmer based in Beijing, China. One guy loves programming and especially be addicted in <span style="color:#859900;">*Python*</span> language. 
+A programmer based in Beijing, China, I love programming and am especially addicted to <span style="color:#859900;">*Python*</span> language. 
 
-I work on different kinds of projects based on different technologies, from web apps to mobiles apps, from <span style="color:#2aa198;">*Java*</span> to <span style="color:#268bd2;">*Objective-C*</span>, <span style="color:#b58900;">*Javascript*</span>.
+I have worked on various projects (such as web apps, mobiles apps, etc) by using different technologies (such as <span style="color:#2aa198;">*Java*</span>, <span style="color:#859900;">*Python*</span>, <span style="color:#268bd2;">*Objective-C*</span>, <span style="color:#b58900;">*JavaScript*</span>, etc).
 
-If you have ideas on your startup project, I will be glad to have discussions with you.
-
-Contact me via the following information:  
+If you need any assistance on project devs or maintenance, you're welcome to contact me via the following means:   
 
 **Email**: <kelvin@memodir.com>  
-**Skype**: seawaywen
-
+**Skype**: seawaywen  
+**LinkedIn**: <http://cn.linkedin.com/in/seawaywen>
 
 &nbsp;  
 
@@ -27,15 +25,15 @@ Contact me via the following information:
 
 # Summary
 
-I am a programmer with 8 years' software development and maintenance experience. I'm able to work independently or lead a team to deliver the complex software applications from design, development, build, release to the final deployment with the rational principles and processes.
+With 8 years experience in software development and maintenance, I'm able to deliver complex software applications, from design, development, build, release, to the final deployment by following the rational principles and processes, either work independently or lead a team.
 
-I worked as a Java developer for years on the web applications from the beginning of my career and I thought that was the direction for a developer like me util I touched script lanaguage - Python, everything started changing - Simpler and Beautiful. [Django][django] is my favorite web framework, with some great libraries: [Tastypie][tastypie], [South][south], [Fabric][fabric], [Haystack][haystack], etc.
+When I began my career, I worked as a Java developer and I believed that Java was the promising direction for me to pursue, until I touched the script language - <span style="color:#859900;">*Python*</span>, I was deeply impressed by its beauty of simplicity. [Django][django] became my favorite web framework and I found some libraries really great in project, such as [Tastypie][tastypie], [South][south], [Fabric][fabric], [Haystack][haystack], etc.
 
-With time goes by, the front end of web app is getting more and more important and popular. It means the Javascript plays the key role at this position. [JQuery][jquery] is a swiss army knife and [Underscore][underscore] is quite useful to manipulate the list object. At the same time, even some frontend MVC frameworks were created, such as [Backbone][backbone]. 
+With time goes by, the front end of web app is getting more and more important and popular. With this trend, the JavaScript acquires its dominant role accordingly. For instance, [JQuery][jquery] is a swiss army knife and [Underscore][underscore] is quite handy as an utility-belt library. At the same time, even some frontend MVC frameworks were created, such as [Backbone][backbone]. 
 
-You application is getting more and more complex with the increasing files, some days later, you will find that orgnize your javascript file with [AMD][amd] is a wise choice in the project.
+The web application becomes more and more complex with the increasing files, and you may, one day, find that orgnizing your JavaScript file with [AMD][amd] is a wise choice in the project.
 
-In the web developement world, one day I happened to get a change to embrace the Mac world - my first iOS project, I started to enjoy the elegant framework - Cocoa by learning the Objective-C. From the iOS projects, I learnt a lot of new knowledge, and that extended my experience.
+Three years ago, I happened to step into the Mac world via my first iOS project, and I started to enjoy the elegant framework - [Cocoa][cocoa] by learning the Objective-C. From the iOS projects, I learned a lot of novel and advanced knowledges which have greatly extended my experience in my career.
 
 [django]: http://www.django.com 'django official site'
 [tastypie]: https://github.com/toastdriven/django-tastypie
@@ -46,6 +44,7 @@ In the web developement world, one day I happened to get a change to embrace the
 [jquery]: http://jquery.com
 [underscore]: http://underscorejs.org
 [amd]: http://requirejs.org/
+[cocoa]: http://en.wikipedia.org/wiki/Cocoa_(API)
 
 &nbsp;  
 
@@ -62,8 +61,8 @@ In the web developement world, one day I happened to get a change to embrace the
 <span style="color:#859900;">*Python*</span>,
 <span style="color:#268bd2;">*Objective-C*</span>,
 <span style="color:#b58900;">*JavaScript*</span>,
-<span style="color:#6c71c4;">*CoffeeScript*</span>
-<span style="color:#268bd2;">*Objective-J*</span>,
+<span style="color:#6c71c4;">*CoffeeScript*</span>,
+<span style="color:#268bd2;">*Objective-J*</span>
 
 ## Development frameworks or libs
 <span style="color:#2aa198;">*Java*</span>:
@@ -98,7 +97,7 @@ In the web developement world, one day I happened to get a change to embrace the
 `JIRA`, `Mingle`
 
 <span style="color:#657b83;">*Daily Build*</span>: 
-`Jeckin`
+`Jenckin`
 
 ## Project Management  
 * Experience to form a team from ground  
