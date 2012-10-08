@@ -20,7 +20,8 @@ After google the issue, I got the solution, the root cause is that Apple remove 
 Try this: 
 
 ```
-curl -O http://python-distribute.org/distribute_setup.py /usr/bin/python2.6 distribute_setup.py	
+curl -O http://python-distribute.org/distribute_setup.py 
+/usr/bin/python2.7 distribute_setup.py	
 sudo pip install pip --upgrade
 ```	
 	
