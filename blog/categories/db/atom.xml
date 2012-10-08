@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: db | Kelvin Li]]></title>
+  <link href="http://seawaywen.github.com/blog/categories/db/atom.xml" rel="self"/>
+  <link href="http://seawaywen.github.com/"/>
+  <updated>2012-10-08T18:37:54+08:00</updated>
+  <id>http://seawaywen.github.com/</id>
+  <author>
+    <name><![CDATA[Kelvin Li]]></name>
+    <email><![CDATA[kelvin@memodir.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Setup Postgres on Ubuntu]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/08/05/setup-postgres-on-ubuntu/"/>
+    <updated>2012-08-05T15:46:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/08/05/setup-postgres-on-ubuntu</id>
+    <content type="html"><![CDATA[<h5>1. Change the pg_hda.conf</h5>
+
+<pre><code>/etc/postgresql/9.1/main/pg_hba.conf
+host all all 172.22.2.0/24 md5
+</code></pre>
+
+<h5>2.Change the <code>/etc/postgresql/9.1/main/postgresql.conf</code></h5>
+
+<pre><code>listen_addresses = '*'
+</code></pre>
+
+<h5>3.Change the postgres user's password</h5>
+
+<pre><code>sudo su postgres -c psql template1
+ALTER USER postgres WITH PASSWORD ' &lt;***password***&gt; ';
+</code></pre>
+
+<h5>4.sudo passwd postgres</h5>
+
+<h5>5.Restart the db server</h5>
+
+<pre><code>sudo /etc/init.d/
+</code></pre>
+
+<h5>6.Create the database</h5>
+
+<pre><code>su postgres
+createdb mydb
+</code></pre>
+
+<p>refer to:<a href="https://help.ubuntu.com/11.04/serverguide/postgresql.html">https://help.ubuntu.com/11.04/serverguide/postgresql.html</a></p>
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Enable the remote connection to the MySQL DB on Ubuntu Server]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/05/03/enable-the-remote-connection-to-the-mysql-db-on-ubuntu-server/"/>
+    <updated>2012-05-03T17:51:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/05/03/enable-the-remote-connection-to-the-mysql-db-on-ubuntu-server</id>
+    <content type="html"><![CDATA[<ol>
+<li><p>Create a MySQL user<br/>
+<code>mysql&gt; GRANT ALL PRIVILEGES ON remote.* TO remote@"%" IDENTIFIED BY "remotepwd";</code></p></li>
+<li><p>Change the /etc/mysql/my.cnf<br/>
+<code>disable the bind-address = 127.0.0.1</code></p></li>
+<li><p>Restart the DB<br/>
+<code>sudo /etc/init.d/mysql restart</code></p></li>
+</ol>
+
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+</feed>

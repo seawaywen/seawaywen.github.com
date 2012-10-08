@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: mac | Kelvin Li]]></title>
+  <link href="http://seawaywen.github.com/blog/categories/mac/atom.xml" rel="self"/>
+  <link href="http://seawaywen.github.com/"/>
+  <updated>2012-10-08T18:37:54+08:00</updated>
+  <id>http://seawaywen.github.com/</id>
+  <author>
+    <name><![CDATA[Kelvin Li]]></name>
+    <email><![CDATA[kelvin@memodir.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Python env issue on Mac (Mountain Lion)]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/09/16/python-env-issue-on-mountain-lion/"/>
+    <updated>2012-09-16T20:51:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/09/16/python-env-issue-on-mountain-lion</id>
+    <content type="html"><![CDATA[<p>Today I have python issue after upgrading to the Moutain Lion. I want to create a new virtual python evironment with virtualenv, but I got this error:</p>
+
+<pre><code>Traceback (most recent call last): File "/Library/Python/2.7/site-packages/pip-1.2-py2.7.egg/pip/
+basecommand.py", line 106, in main status = self.run(options, args) File "/Library/Python/2.7/
+site-packages/pip-1.2-py2.7.egg/pip/commands/install.py", line 248, in run import setuptools
+ImportError: No module named setuptools
+</code></pre>
+
+<p>After google the issue, I got the solution, the root cause is that Apple remove the source code of Python in Mountain Lion, and some libs depend on the .py files.</p>
+
+<p>Try this:</p>
+
+<p><code>
+curl -O http://python-distribute.org/distribute_setup.py
+/usr/bin/python2.7 distribute_setup.py  
+sudo pip install pip --upgrade
+</code></p>
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[show hidden files in Finder]]></title>
+    <link href="http://seawaywen.github.com/blog/2011/02/16/show-hidden-files-in-finder/"/>
+    <updated>2011-02-16T12:27:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2011/02/16/show-hidden-files-in-finder</id>
+    <content type="html"><![CDATA[<h3>Enable showing hidden files in finder</h3>
+
+<pre><code>defaults write com.apple.finder AppleShowAllFiles - bool true
+
+KillAll Finder
+</code></pre>
+
+<h3>disable showing hidden files in finder</h3>
+
+<pre><code>defaults write com.apple.finder AppleShowAllFiles - bool false
+
+KillAll Finder
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

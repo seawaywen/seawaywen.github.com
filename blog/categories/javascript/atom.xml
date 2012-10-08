@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: javascript | Kelvin Li]]></title>
+  <link href="http://seawaywen.github.com/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://seawaywen.github.com/"/>
+  <updated>2012-10-08T18:37:54+08:00</updated>
+  <id>http://seawaywen.github.com/</id>
+  <author>
+    <name><![CDATA[Kelvin Li]]></name>
+    <email><![CDATA[kelvin@memodir.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to fix the compile error when use narwhal-jsc as Jake Engine in Cappuccino]]></title>
+    <link href="http://seawaywen.github.com/blog/2011/07/31/how-to-fix-the-compile-error-when-use-narwhal-jsc-as-jake-engine-in-cappuccino/"/>
+    <updated>2011-07-31T11:09:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2011/07/31/how-to-fix-the-compile-error-when-use-narwhal-jsc-as-jake-engine-in-cappuccino</id>
+    <content type="html"><![CDATA[<p>When you use the narwhal-jsc as your jake Engine, compile with the following errors:</p>
+
+<pre><code>Making all in examples
+Make[3]: *** No rule to make target `../src/libedit.la', needed by `tc1'. Stop.
+make[2]: *** [all-recursive] Error 1
+make[1]: *** [all] Error 2
+make: *** [deps/libedit-20100424-3.0/src/.libs/libedit.dylib] Error 2
+</code></pre>
+
+<h3>Solution to fix:</h3>
+
+<p><code>
+1.tusk install narwhal-jsc
+2.go to narwhal/packages/narwhal-jsc
+3.go to deps/libedit20100424-3.0(may be different from this version number)
+4.sudo autoreconf --force --install
+5. ./configure
+6. sudo make (with compile error, don't care about it)
+7. go back to narwhal/packages/narwhal-jsc
+8. make webkit (compile successfully)
+9. ln -s narwhal/packages/narwhal-jsc/bin/narwhial-jsc narwhal/bin
+10. export NARWHAL_ENGINE=jsc (add to ~/.profile)
+11. source ~/.profile
+12. open a new terminal and run jake (it works)
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

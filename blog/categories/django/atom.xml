@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: django | Kelvin Li]]></title>
+  <link href="http://seawaywen.github.com/blog/categories/django/atom.xml" rel="self"/>
+  <link href="http://seawaywen.github.com/"/>
+  <updated>2012-10-08T18:37:54+08:00</updated>
+  <id>http://seawaywen.github.com/</id>
+  <author>
+    <name><![CDATA[Kelvin Li]]></name>
+    <email><![CDATA[kelvin@memodir.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[MySQLdb missing image error from PyCharm IDE when django sync]]></title>
+    <link href="http://seawaywen.github.com/blog/2011/07/25/mysqldb-missing-image-error-from-pycharm-ide-when-django-sync/"/>
+    <updated>2011-07-25T11:48:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2011/07/25/mysqldb-missing-image-error-from-pycharm-ide-when-django-sync</id>
+    <content type="html"><![CDATA[<h3>Solution:</h3>
+
+<p>You can set the environment used by launchd (and, by extension, anything started from Spotlight) with launchctl setenv.</p>
+
+<p>For example to set the path:</p>
+
+<pre><code>launchctl setenv PATH /opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+</code></pre>
+
+<p>Or if you want to set up your path in .bashrc or similar, then have it mirrored in launchd:</p>
+
+<pre><code>PATH=/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+
+launchctl setenv PATH $PATH
+</code></pre>
+
+<p>There's no need to reboot (though you will need to restart an app if you want it to pick up the changed environment.)</p>
+]]></content>
+  </entry>
+  
+</feed>

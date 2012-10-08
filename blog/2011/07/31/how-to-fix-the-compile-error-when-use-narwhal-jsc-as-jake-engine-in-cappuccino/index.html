@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>How to fix the compile error when use narwhal-jsc as Jake Engine in Cappuccino - Kelvin Li</title>
+  <meta name="author" content="Kelvin Li">
+
+  
+  <meta name="description" content="When you use the narwhal-jsc as your jake Engine, compile with the following errors: Making all in examples
+Make[3]: *** No rule to make target `../ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://seawaywen.github.com/blog/2011/07/31/how-to-fix-the-compile-error-when-use-narwhal-jsc-as-jake-engine-in-cappuccino/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Kelvin Li" type="application/atom+xml">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35338052-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <div id="logo">
+  	<div id="logoLeft">{</div>
+  	<div id="logoText"> I am </div>
+  	<div id="logoRight">}</div>
+  	<div class="clear"></div>
+  </div>
+  <h1><a href="/">Kelvin Li</a></h1>
+  
+  <div class="clear"></div>
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:seawaywen.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">How to Fix the Compile Error When Use Narwhal-jsc as Jake Engine in Cappuccino</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-31T11:09:00+08:00" pubdate data-updated="true">Jul 31<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>When you use the narwhal-jsc as your jake Engine, compile with the following errors:</p>
+
+<pre><code>Making all in examples
+Make[3]: *** No rule to make target `../src/libedit.la', needed by `tc1'. Stop.
+make[2]: *** [all-recursive] Error 1
+make[1]: *** [all] Error 2
+make: *** [deps/libedit-20100424-3.0/src/.libs/libedit.dylib] Error 2
+</code></pre>
+
+<h3>Solution to fix:</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.tusk install narwhal-jsc
+</span><span class='line'>2.go to narwhal/packages/narwhal-jsc
+</span><span class='line'>3.go to deps/libedit20100424-3.0(may be different from this version number)
+</span><span class='line'>4.sudo autoreconf --force --install
+</span><span class='line'>5. ./configure
+</span><span class='line'>6. sudo make (with compile error, don't care about it)
+</span><span class='line'>7. go back to narwhal/packages/narwhal-jsc
+</span><span class='line'>8. make webkit (compile successfully)
+</span><span class='line'>9. ln -s narwhal/packages/narwhal-jsc/bin/narwhial-jsc narwhal/bin
+</span><span class='line'>10. export NARWHAL_ENGINE=jsc (add to ~/.profile)
+</span><span class='line'>11. source ~/.profile
+</span><span class='line'>12. open a new terminal and run jake (it works)</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Kelvin Li</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-31T11:09:00+08:00" pubdate data-updated="true">Jul 31<span>st</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cappuccino/'>cappuccino</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/2011/07/25/mysqldb-missing-image-error-from-pycharm-ide-when-django-sync/" title="Previous Post: MySQLdb missing image error from PyCharm IDE when django sync">&laquo; MySQLdb missing image error from PyCharm IDE when django sync</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/blog/2011/08/02/how-to-fix-error-when-install-fabric/" title="Next Post: How to Fix Error when Install Fabric">How to Fix Error when Install Fabric &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/09/16/python-env-issue-on-mountain-lion/">Python env issue on Mac (Mountain Lion)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/03/how-to-setup-a-https-site/">How to setup a HTTPS site</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/08/29/tips-for-git-repository-migration-to-other-server/">Tips for git repository migration to other server</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/08/29/how-to-push-to-multiple-git-repositories-at-one-time/">How to push to multiple git repositories at one time</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/08/23/tar-command-usage/">Tar command usage</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/seawaywen">@seawaywen</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'seawaywen',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Kelvin Li @memodir
+  <!--span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span-->
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

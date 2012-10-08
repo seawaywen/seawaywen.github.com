@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: site | Kelvin Li]]></title>
+  <link href="http://seawaywen.github.com/blog/categories/site/atom.xml" rel="self"/>
+  <link href="http://seawaywen.github.com/"/>
+  <updated>2012-10-08T18:37:54+08:00</updated>
+  <id>http://seawaywen.github.com/</id>
+  <author>
+    <name><![CDATA[Kelvin Li]]></name>
+    <email><![CDATA[kelvin@memodir.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to setup a HTTPS site]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/09/03/how-to-setup-a-https-site/"/>
+    <updated>2012-09-03T18:29:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/09/03/how-to-setup-a-https-site</id>
+    <content type="html"><![CDATA[<p>Recently I am going to use SSL on my site. Some important steps were record here for your information.</p>
+
+<h4>Generate CSR (Certificate Signing Request)</h4>
+
+<pre><code>openssl genrsa -out domain.key 2048
+openssl req -new -key domain.key -out domain.csr
+</code></pre>
+
+<p><strong>To be continue</strong>...</p>
+]]></content>
+  </entry>
+  
+</feed>

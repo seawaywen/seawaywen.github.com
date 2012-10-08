@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: dyndns | Kelvin Li]]></title>
+  <link href="http://seawaywen.github.com/blog/categories/dyndns/atom.xml" rel="self"/>
+  <link href="http://seawaywen.github.com/"/>
+  <updated>2012-10-08T18:37:54+08:00</updated>
+  <id>http://seawaywen.github.com/</id>
+  <author>
+    <name><![CDATA[Kelvin Li]]></name>
+    <email><![CDATA[kelvin@memodir.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to setup the Dyndns on the TimeCapsule]]></title>
+    <link href="http://seawaywen.github.com/blog/2011/04/15/how-to-setup-the-dyndns-on-the-timecapsule/"/>
+    <updated>2011-04-15T16:39:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2011/04/15/how-to-setup-the-dyndns-on-the-timecapsule</id>
+    <content type="html"><![CDATA[<p>I've bought the Dynamic DNS service from <a href="http://www.dyndns.com">DynDNS</a>, and I'd like the host my own Mac mini with this service, so that I can access my server out of home.</p>
+
+<p>I hsot my home network with TimeCapsule which is Apple's router product.</p>
+
+<p>I refer to the following link to setup DynDNS server succesfully:<br/>
+<a href="http://www.dyndns.com/support/kb/apple_airport_with_custom_dns.html">http://www.dyndns.com/support/kb/apple_airport_with_custom_dns.html</a></p>
+]]></content>
+  </entry>
+  
+</feed>

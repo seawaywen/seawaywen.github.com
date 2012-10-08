@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: python | Kelvin Li]]></title>
+  <link href="http://seawaywen.github.com/blog/categories/python/atom.xml" rel="self"/>
+  <link href="http://seawaywen.github.com/"/>
+  <updated>2012-10-08T18:37:54+08:00</updated>
+  <id>http://seawaywen.github.com/</id>
+  <author>
+    <name><![CDATA[Kelvin Li]]></name>
+    <email><![CDATA[kelvin@memodir.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Python env issue on Mac (Mountain Lion)]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/09/16/python-env-issue-on-mountain-lion/"/>
+    <updated>2012-09-16T20:51:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/09/16/python-env-issue-on-mountain-lion</id>
+    <content type="html"><![CDATA[<p>Today I have python issue after upgrading to the Moutain Lion. I want to create a new virtual python evironment with virtualenv, but I got this error:</p>
+
+<pre><code>Traceback (most recent call last): File "/Library/Python/2.7/site-packages/pip-1.2-py2.7.egg/pip/
+basecommand.py", line 106, in main status = self.run(options, args) File "/Library/Python/2.7/
+site-packages/pip-1.2-py2.7.egg/pip/commands/install.py", line 248, in run import setuptools
+ImportError: No module named setuptools
+</code></pre>
+
+<p>After google the issue, I got the solution, the root cause is that Apple remove the source code of Python in Mountain Lion, and some libs depend on the .py files.</p>
+
+<p>Try this:</p>
+
+<p><code>
+curl -O http://python-distribute.org/distribute_setup.py
+/usr/bin/python2.7 distribute_setup.py  
+sudo pip install pip --upgrade
+</code></p>
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Install PIL on Ubuntu]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/08/16/install-pil-on-ubuntu/"/>
+    <updated>2012-08-16T22:59:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/08/16/install-pil-on-ubuntu</id>
+    <content type="html"><![CDATA[<p>Install the build dependencies:</p>
+
+<pre><code>sudo apt-get build-dep python-imaging
+</code></pre>
+
+<p>Symlink the libraries:</p>
+
+<pre><code>sudo ln -s /usr/lib/`uname -i`-linux-gnu/libfreetype.so /usr/lib/
+sudo ln -s /usr/lib/`uname -i`-linux-gnu/libjpeg.so /usr/lib/
+sudo ln -s /usr/lib/`uname -i`-linux-gnu/libz.so /usr/lib/
+</code></pre>
+
+<p>Install:</p>
+
+<pre><code>pip install PIL
+</code></pre>
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to Fix Error when Install Fabric]]></title>
+    <link href="http://seawaywen.github.com/blog/2011/08/02/how-to-fix-error-when-install-fabric/"/>
+    <updated>2011-08-02T23:04:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2011/08/02/how-to-fix-error-when-install-fabric</id>
+    <content type="html"><![CDATA[<pre><code>Installing collected packages: pycrypto, paramiko
+Running setup.py install for pycrypto
+warning: GMP library not found; Not building Crypto.PublicKey._fastmath.
+building 'Crypto.Hash.MD2' extension
+gcc-4.2 -fno-strict-aliasing -fno-common -dynamic -fwrapv -Wall -Wstrict-prototypes -DENABLE_DTRACE -arch i386 -arch ppc -arch x86_64 -pipe -std=c99 -O3 -fomit-frame-pointer -Isrc/ -I/System/Library/Frameworks/Python.framework/Versions/2.6/include/python2.6 -c src/MD2.c -o build/temp.macosx-10.6-universal-2.6/src/MD2.o
+/usr/libexec/gcc/powerpc-apple-darwin10/4.2.1/as: assembler (/usr/bin/../local/libexec/as/ppc/as or /usr/bin/../local/libexec/gcc/darwin/ppc/as) for architecture ppc not installed
+Installed assemblers are:
+/usr/bin/../libexec/as/x86_64/as for architecture x86_64
+/usr/bin/../libexec/as/i386/as for architecture i386
+/usr/bin/../libexec/as/arm/as for architecture arm
+src/MD2.c:134: fatal error: error writing to -: Broken pipe
+compilation terminated.
+lipo: can't open input file: /var/tmp//cc2qfvbZ.out (No such file or directory)
+error: command 'gcc-4.2' failed with exit status 1
+Complete output from command /usr/bin/python -c "import setuptools;__file__='/Users/Kelvin/build/pycrypto/setup.py';execfile(__file__)" install --single-version-externally-managed --record /tmp/pip-4O2Z1I-record/install-record.txt:
+running install
+.....
+
+lipo: can't open input file: /var/tmp//cc1IbrXz.out (No such file or directory)
+
+error: command 'gcc-4.2' failed with exit status 1
+</code></pre>
+
+<p>WHEN YOU GOT ABOVE ERROR WHEN YOU INSTALL THE FABRIC, REFER TO THE FOLLOWING COMMAND:
+<code>
+sudo ARCHFLAGS="-arch i386 -arch x86_64" pip install Fabric
+</code></p>
+
+<p><strong>Reason</strong>: in Xcode 4, gcc removed the -arch ppc</p>
+]]></content>
+  </entry>
+  
+</feed>

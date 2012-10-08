@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ssh | Kelvin Li]]></title>
+  <link href="http://seawaywen.github.com/blog/categories/ssh/atom.xml" rel="self"/>
+  <link href="http://seawaywen.github.com/"/>
+  <updated>2012-10-08T18:37:54+08:00</updated>
+  <id>http://seawaywen.github.com/</id>
+  <author>
+    <name><![CDATA[Kelvin Li]]></name>
+    <email><![CDATA[kelvin@memodir.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[how to use the SSH in the proxy env]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/04/14/how-to-use-the-ssh-in-the-proxy-env/"/>
+    <updated>2012-04-14T11:22:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/04/14/how-to-use-the-ssh-in-the-proxy-env</id>
+    <content type="html"><![CDATA[<p>Sometimes you are working in the coperation dev environemnt and you found you stay behind the firewall, some ports are blocked, such as 22, and you have to access internet via corperation proxy server, but you do need to use ssh to connect some site outside of office. This post will provide you a solution to use SSH in the proxy environment.</p>
+
+<p><strong>This post imagin that you work with Mac env</strong></p>
+
+<h5>1. Install <a href="http://www.agroman.net/corkscrew/">corkscrew</a>:</h5>
+
+<pre><code>./configure -host=apple
+make
+make install
+</code></pre>
+
+<p>it will be installed in /usr/local/corkscrew by default.</p>
+
+<h5>2. Config proxy information In <em>System preference</em></h5>
+
+<h5>3.     Setup the SSH config info</h5>
+
+<pre><code>echo 'ProxyCommand /usr/local/bin/corkscrew your.proxy.server 8080 %h %p' &gt;&gt; ~/.ssh/config
+</code></pre>
+
+<h5>4. Test with</h5>
+
+<pre><code>ssh xx@xxx.com
+</code></pre>
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[25个必须记住的SSH命令]]></title>
+    <link href="http://seawaywen.github.com/blog/2011/08/03/25-useful-ssh-commands/"/>
+    <updated>2011-08-03T01:15:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2011/08/03/25-useful-ssh-commands</id>
+    <content type="html"><![CDATA[<p>OpenSSH是SSH连接工具的免费版本。telnet，rlogin和ftp用户可能还没意识到他们在互联网上传输的密码是未加密的，但SSH是加密的，OpenSSH加密所有通信（包括密码），有效消除了窃听，连接劫持和其它攻击。此外，OpenSSH提供了安全隧道功能和多种身份验证方法，支持SSH协议的所有版本。</p>
+
+<p>SSH是一个非常伟大的工具，如果你要在互联网上远程连接到服务器，那么SSH无疑是最佳的候选。下面是通过网络投票选出的25个最佳SSH命令，你必须牢记于心。</p>
+
+<ul>
+<li><p>复制SSH密钥到目标主机，开启无密码SSH登录
+<code>
+ssh-copy-id user@host
+</code>
+如果还没有密钥，请使用ssh-keygen命令生成。</p></li>
+<li><p>从某主机的80端口开启到本地主机2001端口的隧道
+<code>
+ssh -N -L2001:localhost:80 somemachine
+</code>
+现在你可以直接在浏览器中输入http://localhost:2001访问这个网站。</p></li>
+<li><p>将你的麦克风输出到远程计算机的扬声器
+<code>
+dd if=/dev/dsp | ssh -c arcfour -C username@host dd of=/dev/dsp
+</code>
+这样来自你麦克风端口的声音将在SSH目标计算机的扬声器端口输出，但遗憾的是，声音质量很差，你会听到很多嘶嘶声。</p></li>
+<li><p>比较远程和本地文件
+<code>
+ssh user@host cat /path/to/remotefile | diff /path/to/localfile –
+</code>
+在比较本地文件和远程文件是否有差异时这个命令很管用。</p></li>
+</ul>
+
+
+<!-- more -->
+
+
+<ul>
+<li><p>通过SSH挂载目录/文件系统
+<code>
+sshfs name@server:/path/to/folder /path/to/mount/point
+</code>
+从<a href="http://fuse.sourceforge.net/sshfs.html">http://fuse.sourceforge.net/sshfs.html</a>下载sshfs，它允许你跨网络安全挂载一个目录。</p></li>
+<li><p>通过中间主机建立SSH连接
+<code>
+ssh -t reachable_host ssh unreachable_host
+</code>
+Unreachable_host表示从本地网络无法直接访问的主机，但可以从reachable_host所在网络访问，这个命令通过到reachable_host的“隐藏”连接，创建起到unreachable_host的连接。</p></li>
+<li><p>将你的SSH公钥复制到远程主机，开启无密码登录 – 简单的方法
+<code>
+ssh-copy-id username@hostname
+</code></p></li>
+<li><p>直接连接到只能通过主机B连接的主机A
+<code>
+ssh -t hostA ssh hostB
+</code>
+当然，你要能访问主机A才行。</p></li>
+<li><p>创建到目标主机的持久化连接
+<code>
+ssh -MNf &lt;user&gt;@&lt;host&gt;
+</code>
+在后台创建到目标主机的持久化连接，将这个命令和你~/.ssh/config中的配置结合使用：
+<code>
+Host host
+ControlPath ~/.ssh/master-%r@%h:%p
+ControlMaster no
+</code>
+所有到目标主机的SSH连接都将使用持久化SSH套接字，如果你使用SSH定期同步文件（使用rsync/sftp/cvs/svn），这个命令将非常有用，因为每次打开一个SSH连接时不会创建新的套接字。</p></li>
+<li><p>通过SSH连接屏幕
+<code>
+ssh -t remote_host screen –r
+</code>
+直接连接到远程屏幕会话（节省了无用的父bash进程）。</p></li>
+<li><p>端口检测（敲门）
+<code>
+knock &lt;host&gt; 3000 4000 5000 &amp;&amp; ssh -p &lt;port&gt; user@host &amp;&amp; knock &lt;host&gt; 5000 4000 3000
+</code>
+在一个端口上敲一下打开某个服务的端口（如SSH），再敲一下关闭该端口，需要先安装knockd，下面是一个配置文件示例。
+<code>
+[options]
+logfile = /var/log/knockd.log
+[openSSH]
+sequence = 3000,4000,5000
+seq_timeout = 5
+command = /sbin/iptables -A INPUT -i eth0 -s %IP% -p tcp –dport 22 -j ACCEPT
+tcpflags = syn
+[closeSSH]
+sequence = 5000,4000,3000
+seq_timeout = 5
+command = /sbin/iptables -D INPUT -i eth0 -s %IP% -p tcp –dport 22 -j ACCEPT
+tcpflags = syn
+</code></p></li>
+<li><p>删除文本文件中的一行内容，有用的修复
+<code>
+ssh-keygen -R &lt;the_offending_host&gt;
+</code>
+在这种情况下，最好使用专业的工具。</p></li>
+<li><p>通过SSH运行复杂的远程shell命令
+<code>
+ssh host -l user $(&lt;cmd.txt)
+</code>
+更具移植性的版本：
+<code>
+ssh host -l user “`cat cmd.txt`”
+</code></p></li>
+<li><p>通过SSH将MySQL数据库复制到新服务器
+<code>
+mysqldump –add-drop-table –extended-insert –force –log-error=error.log -uUSER -pPASS OLD_DB_NAME | ssh -C user@newhost “mysql -uUSER -pPASS NEW_DB_NAME”
+</code>
+通过压缩的SSH隧道Dump一个MySQL数据库，将其作为输入传递给mysql命令，我认为这是迁移数据库到新服务器最快最好的方法。</p></li>
+<li><p>删除文本文件中的一行，修复“SSH主机密钥更改”的警告
+<code>
+sed -i 8d ~/.ssh/known_hosts
+</code></p></li>
+<li><p>从一台没有SSH-COPY-ID命令的主机将你的SSH公钥复制到服务器
+<code>
+cat ~/.ssh/id_rsa.pub | ssh user@machine “mkdir ~/.ssh; cat &gt;&gt; ~/.ssh/authorized_keys”
+</code>
+如果你使用Mac OS X或其它没有ssh-copy-id命令的*nix变种，这个命令可以将你的公钥复制到远程主机，因此你照样可以实现无密码SSH登录。</p></li>
+<li><p>实时SSH网络吞吐量测试
+<code>
+yes | pv | ssh $host “cat &gt; /dev/null”
+</code>
+通过SSH连接到主机，显示实时的传输速度，将所有传输数据指向/dev/null，需要先安装pv。</p></li>
+</ul>
+
+
+<p>如果是Debian：
+<code>
+apt-get install pv
+</code>
+如果是Fedora：
+<code>
+yum install pv
+</code>
+（可能需要启用额外的软件仓库）。</p>
+
+<ul>
+<li><p>如果建立一个可以重新连接的远程GNU screen
+<code>
+ssh -t user@some.domain.com /usr/bin/screen –xRR
+</code>
+人们总是喜欢在一个文本终端中打开许多shell，如果会话突然中断，或你按下了<code>Ctrl-a d</code>，远程主机上的shell不会受到丝毫影响，你可以重新连接，其它有用的screen命令有<code>Ctrl-a c</code>（打开新的shell）和<code>Ctrl-a a</code>（在shell之间来回切换），请访问<a href="http://aperiodic.net/screen/quick_reference">http://aperiodic.net/screen/quick_reference</a>阅读更多关于screen命令的快速参考。</p></li>
+<li><p>继续SCP大文件
+<code>
+rsync –partial –progress –rsh=ssh $file_source $user@$host:$destination_file
+</code>
+它可以恢复失败的rsync命令，当你通过VPN传输大文件，如备份的数据库时这个命令非常有用，需要在两边的主机上安装rsync。
+<code>
+rsync –partial –progress –rsh=ssh $file_source $user@$host:$destination_file local -&gt; remote
+</code>
+或
+<code>
+rsync –partial –progress –rsh=ssh $user@$host:$remote_file $destination_file remote -&gt; local
+</code></p></li>
+<li><p>通过SSH W/ WIRESHARK分析流量
+<code>
+ssh root@server.com ‘tshark -f “port !22″ -w -' | wireshark -k -i –
+</code>
+使用tshark捕捉远程主机上的网络通信，通过SSH连接发送原始pcap数据，并在wireshark中显示，按下Ctrl+C将停止捕捉，但也会关闭wireshark窗口，可以传递一个“-c #”参数给tshark，让它只捕捉“#”指定的数据包类型，或通过命名管道重定向数据，而不是直接通过SSH传输给wireshark，我建议你过滤数据包，以节约带宽，tshark可以使用tcpdump替代：
+<code>
+ssh root@example.com tcpdump -w – ‘port !22′ | wireshark -k -i –
+</code></p></li>
+<li><p>保持SSH会话永久打开
+<code>
+autossh -M50000 -t server.example.com ‘screen -raAd mysession’
+</code>
+打开一个SSH会话后，让其保持永久打开，对于使用笔记本电脑的用户，如果需要在Wi-Fi热点之间切换，可以保证切换后不会丢失连接。</p></li>
+<li><p>更稳定，更快，更强的SSH客户端
+<code>
+ssh -4 -C -c blowfish-cbc
+</code>
+强制使用IPv4，压缩数据流，使用Blowfish加密。</p></li>
+<li><p>使用cstream控制带宽
+<code>
+tar -cj /backup | cstream -t 777k | ssh host ‘tar -xj -C /backup’
+</code>
+使用bzip压缩文件夹，然后以777k bit/s速率向远程主机传输。Cstream还有更多的功能，请访问<a href="http://www.cons.org/cracauer/cstream.html#usage">http://www.cons.org/cracauer/cstream.html#usage</a>了解详情，例如：
+<code>
+echo w00t, i’m 733+ | cstream -b1 -t2
+</code></p></li>
+<li><p>一步将SSH公钥传输到另一台机器
+<code>
+ssh-keygen; ssh-copy-id user@host; ssh user@host
+</code>
+这个命令组合允许你无密码SSH登录，注意，如果在本地机器的~/.ssh目录下已经有一个SSH密钥对，ssh-keygen命令生成的新密钥可能会覆盖它们，ssh-copy-id将密钥复制到远程主机，并追加到远程账号的~/.ssh/authorized_keys文件中，使用SSH连接时，如果你没有使用密钥口令，调用<code>ssh user@host</code>后不久就会显示远程shell。</p></li>
+<li><p>将标准输入（stdin）复制到你的X11缓冲区
+<code>
+ssh user@host cat /path/to/some/file | xclip
+</code>
+你是否使用scp将文件复制到工作用电脑上，以便复制其内容到电子邮件中？xclip可以帮到你，它可以将标准输入复制到X11缓冲区，你需要做的就是点击鼠标中键粘贴缓冲区中的内容。</p></li>
+</ul>
+
+
+<p>Done</p>
+]]></content>
+  </entry>
+  
+</feed>

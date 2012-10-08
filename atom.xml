@@ -1,0 +1,979 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Kelvin Li]]></title>
+  <link href="http://seawaywen.github.com/atom.xml" rel="self"/>
+  <link href="http://seawaywen.github.com/"/>
+  <updated>2012-10-08T18:37:54+08:00</updated>
+  <id>http://seawaywen.github.com/</id>
+  <author>
+    <name><![CDATA[Kelvin Li]]></name>
+    <email><![CDATA[kelvin@memodir.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Python env issue on Mac (Mountain Lion)]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/09/16/python-env-issue-on-mountain-lion/"/>
+    <updated>2012-09-16T20:51:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/09/16/python-env-issue-on-mountain-lion</id>
+    <content type="html"><![CDATA[<p>Today I have python issue after upgrading to the Moutain Lion. I want to create a new virtual python evironment with virtualenv, but I got this error:</p>
+
+<pre><code>Traceback (most recent call last): File "/Library/Python/2.7/site-packages/pip-1.2-py2.7.egg/pip/
+basecommand.py", line 106, in main status = self.run(options, args) File "/Library/Python/2.7/
+site-packages/pip-1.2-py2.7.egg/pip/commands/install.py", line 248, in run import setuptools
+ImportError: No module named setuptools
+</code></pre>
+
+<p>After google the issue, I got the solution, the root cause is that Apple remove the source code of Python in Mountain Lion, and some libs depend on the .py files.</p>
+
+<p>Try this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -O http://python-distribute.org/distribute_setup.py 
+</span><span class='line'>/usr/bin/python2.7 distribute_setup.py    
+</span><span class='line'>sudo pip install pip --upgrade</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to setup a HTTPS site]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/09/03/how-to-setup-a-https-site/"/>
+    <updated>2012-09-03T18:29:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/09/03/how-to-setup-a-https-site</id>
+    <content type="html"><![CDATA[<p>Recently I am going to use SSL on my site. Some important steps were record here for your information.</p>
+
+<h4>Generate CSR (Certificate Signing Request)</h4>
+
+<pre><code>openssl genrsa -out domain.key 2048
+openssl req -new -key domain.key -out domain.csr
+</code></pre>
+
+<p><strong>To be continue</strong>&#8230;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tips for git repository migration to other server]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/08/29/tips-for-git-repository-migration-to-other-server/"/>
+    <updated>2012-08-29T14:40:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/08/29/tips-for-git-repository-migration-to-other-server</id>
+    <content type="html"><![CDATA[<p>Recently I am going to use the private git repository that hosting on the <a href="http://www.webfaction.com">webfaction</a> from my own server. During the migration I met some issues, here are some tips should be noticed.</p>
+
+<p>When create the new repository, don&#8217;t forget:</p>
+
+<pre><code>git config http.receivepack true
+</code></pre>
+
+<p>If you are using the SSL on the GIT server without certificate signed by CA, you <strong>SHOULD</strong> do these in your local box:</p>
+
+<pre><code>export GIT_SSL_NO_VERIFY=true
+git clone https://demo@your_git_site_url/project.git
+</code></pre>
+
+<p>Then, disable SSL certificate verification for the repository to enable push and pull operations:</p>
+
+<pre><code>switch to the repository directory
+git config http.sslVerify false
+</code></pre>
+
+<p>And of course when you get error:</p>
+
+<p><code>SSL certificate problem, verify that the CA cert is OK.</code> <code>Details: error:14090086:SSL</code>   <br/>
+<code>routines:SSL3_GET_SERVER_CERTIFICATE:certificate verify failed while accessing</code></p>
+
+<p>You can config gloablly:</p>
+
+<pre><code>git config --global http.sslVerify false
+</code></pre>
+
+<!-- more -->
+
+
+<p>When you clone the repository from the server, and you got the following error message:</p>
+
+<p><code>./objects/pack/._pack-de7d2e641423ddac38ff369dae6afad9f02d4397.idx is too small</code></p>
+
+<p><code>error: index file /home/joe/site/.git/objects/pack/._pack-de7d2e641423ddac38ff369dae6afad9f02d4397.idx is too small</code></p>
+
+<p>What you should do is run the following commands in your local repository:</p>
+
+<pre><code>git config repack.usedeltabaseoffset false
+git repack -a -d
+</code></pre>
+
+<p>If you have Error:</p>
+
+<p><code>RPC failed; result=22, HTTP code = 411</code></p>
+
+<p>do as following:</p>
+
+<pre><code>git config http.postBuffer 524288000 #Permit pushes up to 500 megabytes
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to push to multiple git repositories at one time]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/08/29/how-to-push-to-multiple-git-repositories-at-one-time/"/>
+    <updated>2012-08-29T14:10:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/08/29/how-to-push-to-multiple-git-repositories-at-one-time</id>
+    <content type="html"><![CDATA[<p>I have 2 different repositories now on the different server, now I want one of them to be the backup. Two solutions are in my mind.</p>
+
+<ol>
+<li>Sync the repository periodically</li>
+<li>Each time when push the changes, both of the repositoy should be pushed</li>
+</ol>
+
+
+<p>Here you can follow this handy trick to keep your updates on each your GIT server with one push:</p>
+
+<p><strong>In .git/config file:</strong></p>
+
+<pre><code>[remote "all"]
+url = kelvin@git.xxx.com:sample.git
+url = kelvin@git.yyy.com::sample.git
+
+[remote "origin"]
+fetch = +refs/heads/*:refs/remotes/origin/*
+url = kelvin@git.xxx.com:sample.git
+
+[remote "github"]
+fetch = +refs/heads/*:refs/remotes/github/*
+url = kelvin@git.yyy.com::sample.git
+</code></pre>
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tar command usage]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/08/23/tar-command-usage/"/>
+    <updated>2012-08-23T22:02:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/08/23/tar-command-usage</id>
+    <content type="html"><![CDATA[<p>Create the tar file</p>
+
+<pre><code>tar -czvp -f archive.tar.gz foo bar # Create archive.tar.gz from files foo and bar with the preserved permission,
+tar -cjvp -f archive.tar.bz2 foo bar 
+</code></pre>
+
+<p>How to split the file:</p>
+
+<pre><code>split -b 4000k archive.tar.gz archive.20120829.tar.gz. -verbose
+
+creating file 'archive.20120829.tar.gz.aa'
+creating file 'archive.20120829.tar.gz.ab'
+creating file 'archive.20120829.tar.gz.ac'
+...
+</code></pre>
+
+<p>We can merge above 2 commands as one with the pipe | as following:</p>
+
+<pre><code>tar -czvp -f -- archive.tar.gz foo bar |split -b 4000k -- archive.tar.gz archive.20120829.tar.gz. -verbose
+
+tar -tvf archive.tar # List all files in archive.tar verbosely.
+</code></pre>
+
+<p>How to exact the split tar files?</p>
+
+<pre><code>cat archive.20120829.tar.gz.a* &gt; archive.20120829.tar.gz
+
+cat archive.20120829.tar.gz.a* |tar -zxv
+</code></pre>
+
+<p><strong>Strange ISSUE</strong>:</p>
+
+<p>Under Mac OS, when you <code>tar cfv xx.tar xx</code>, you have some strange extra files start with ._xxx generated.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Install PIL on Ubuntu]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/08/16/install-pil-on-ubuntu/"/>
+    <updated>2012-08-16T22:59:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/08/16/install-pil-on-ubuntu</id>
+    <content type="html"><![CDATA[<p>Install the build dependencies:</p>
+
+<pre><code>sudo apt-get build-dep python-imaging
+</code></pre>
+
+<p>Symlink the libraries:</p>
+
+<pre><code>sudo ln -s /usr/lib/`uname -i`-linux-gnu/libfreetype.so /usr/lib/
+sudo ln -s /usr/lib/`uname -i`-linux-gnu/libjpeg.so /usr/lib/
+sudo ln -s /usr/lib/`uname -i`-linux-gnu/libz.so /usr/lib/
+</code></pre>
+
+<p>Install:</p>
+
+<pre><code>pip install PIL
+</code></pre>
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Setup Postgres on Ubuntu]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/08/05/setup-postgres-on-ubuntu/"/>
+    <updated>2012-08-05T15:46:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/08/05/setup-postgres-on-ubuntu</id>
+    <content type="html"><![CDATA[<h5>1. Change the pg_hda.conf</h5>
+
+<pre><code>/etc/postgresql/9.1/main/pg_hba.conf
+host all all 172.22.2.0/24 md5
+</code></pre>
+
+<h5>2.Change the <code>/etc/postgresql/9.1/main/postgresql.conf</code></h5>
+
+<pre><code>listen_addresses = '*'
+</code></pre>
+
+<h5>3.Change the postgres user&#8217;s password</h5>
+
+<pre><code>sudo su postgres -c psql template1
+ALTER USER postgres WITH PASSWORD ' &lt;***password***&gt; ';
+</code></pre>
+
+<h5>4.sudo passwd postgres</h5>
+
+<h5>5.Restart the db server</h5>
+
+<pre><code>sudo /etc/init.d/
+</code></pre>
+
+<h5>6.Create the database</h5>
+
+<pre><code>su postgres
+createdb mydb
+</code></pre>
+
+<p>refer to:<a href="https://help.ubuntu.com/11.04/serverguide/postgresql.html">https://help.ubuntu.com/11.04/serverguide/postgresql.html</a></p>
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Delete files with find results]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/07/22/delete-files-with-find-results/"/>
+    <updated>2012-07-22T12:48:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/07/22/delete-files-with-find-results</id>
+    <content type="html"><![CDATA[<p>When you tried to delete all files with the name abc.txt under the folder /home/kelvin, try the following commands(one of them works):</p>
+
+<pre><code>find /home/kelvin -name abc.txt | xargs rm -rf
+find /home//kelvin -name abc.txt -exec rm -fv {} \;
+</code></pre>
+
+<p>Refer the doc: <a href="http://www.linuxsir.org/main/?q=node/137">http://www.linuxsir.org/main/?q=node/137</a></p>
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[制作，编译和使用静态库]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/05/18/create-compile-and-use-static-library-with-xcode-on-mac/"/>
+    <updated>2012-05-18T12:47:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/05/18/create-compile-and-use-static-library-with-xcode-on-mac</id>
+    <content type="html"><![CDATA[<p>很多情况下，我们从网上得到的是一个纯C的代码包，他们这些库，往往是各种平台通用，代码包<code>svn checkout</code>出来后，里面有<code>makefile</code>, <code>vcproject file</code> 等。</p>
+
+<p>但往往我们先README看过之后，通过</p>
+
+<pre><code>./configure make make install  
+</code></pre>
+
+<p>来实现编译生成了一个库。（注意一些基本语法 ./confiure后如果带 &#8211;<code>prefix=/path/to/your/custom/dir</code> 表明自定义安装路径。）</p>
+
+<p>那么在这样的情况下，我们第一个首先会遇到的问题，就是这个库格式不兼容。</p>
+
+<p>我们添加了这个库到project后编译时，显示</p>
+
+<pre><code>this file format doesn't support (i386)。  
+</code></pre>
+
+<p>这个情况，是由于大部分snow leopard是INTEL DUO CPU，双核x86_64的，一般很多库，不加特别标注，都以为你开发了为MAC电脑开发程序，所以库都默认为x86_64位的静态库。如果你好奇，可以new一个MAC开发程序的project，试着看看那个库能不能正常编译，没有warning就知道了。</p>
+
+<p>当然，还有一个命令行来检测你编译的库，可以使用在什么平台架构下。
+方法如下：</p>
+
+<pre><code>lipo -info /path/to/your/library.a
+</code></pre>
+
+<p>即可看到此库位i386, x86_64, arm等等。</p>
+
+<!-- more -->
+
+
+<p>明白了上面的问题的产生原因，我们就好办了。 一般解决办法是这样的，在｀./configure｀ 之后加一点参数，比如 <code>CFLAG="-arch i386"</code>。GCC的path设定到SDK path以下的｀/usr/lib/gcc/i686｀ or ｀arm｀下。注意，SDK PATH，有两种，iphoneOs 和iphoneSimulator.有很大的区别！！</p>
+
+<p>好了。以上是第一个问题。随后，你编译成功，lipo检测版本也OK后，你可以*.a 静态库文件到Project了。记得选中复制到项目。</p>
+
+<p>再一个问题，也就是第二大问题，就是如何导入头文件。</p>
+
+<p>由于很多是C的代码，headers通常是这样使用的 ｀#include &lt;xx.h>` 。如果我们这样使用，xcode直接报错，提示找不到这样的头文件。</p>
+
+<p>那我们该怎么办呢？我找了网上所有的文章，都一带而过。于是我很愚蠢的选择把头文件拷贝过来。然后一个个的改include 为import ,把&lt; >语法，改为” “。并且，木有一个高手愿意说！我恨啊！！！</p>
+
+<p>其实可以使用这样的办法，就是在右击你的project 名，选择Get Info . 在build选项卡中，有search hearder path 选项。是让你告诉xcode去哪儿搜搜头文件。</p>
+
+<p>记住，这里如果你的库的安装路径是/usr/AAA的话，那AAA下肯定有include , lib两大文件夹。 那你在选项中，请直接填/usr/AAA，不需要多此一举选择到include文件夹中，苹果会自动替你搜索进去。</p>
+
+<p>这里有一个小细节，如果这样编译出错的话，请不要选中recursive ，否则可能导致头文件重复引用，导致error: expected &#8216;=&#8217;, &#8216;,&#8217;, &#8216;;&#8217;, &#8216;asm&#8217; or &#8217;<strong>attribute</strong>&#8217; before 这样的错误。</p>
+
+<p>至此，xcode的引用第三方库已经基本讲解结束了。一般来说，请不要相信那些片段，说什么让你设定library的path 。请记住，*.a的静态库，直接按照本文附件中的方法，添加文件到Project，不要偷懒直接引用path，会有很多意外的错误。</p>
+
+<p>refer to: <a href="http://blog.csdn.net/pjk1129/article/details/7255163">http://blog.csdn.net/pjk1129/article/details/7255163</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Start service automatically on linux server]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/05/17/how-to-start-service-automatically-on-linux-server/"/>
+    <updated>2012-05-17T14:52:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/05/17/how-to-start-service-automatically-on-linux-server</id>
+    <content type="html"><![CDATA[<h3>Add the service as automatically startup</h3>
+
+<ol>
+<li>copy the startup script to <code>/etc/init.d</code></li>
+<li><code>sudo chmod 755 /etc/init.d/your_script</code></li>
+<li>run the following commonds</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/init.d
+</span><span class='line'>sudo upate-rc.d your_script defaults xx(xx is the start sequence number)</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Remove the startup service</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/init.d
+</span><span class='line'>sudo update-rc.d -f your_script remove</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Enable the remote connection to the MySQL DB on Ubuntu Server]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/05/03/enable-the-remote-connection-to-the-mysql-db-on-ubuntu-server/"/>
+    <updated>2012-05-03T17:51:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/05/03/enable-the-remote-connection-to-the-mysql-db-on-ubuntu-server</id>
+    <content type="html"><![CDATA[<ol>
+<li><p>Create a MySQL user<br/>
+<code>mysql&gt; GRANT ALL PRIVILEGES ON remote.* TO remote@"%" IDENTIFIED BY "remotepwd";</code></p></li>
+<li><p>Change the /etc/mysql/my.cnf<br/>
+<code>disable the bind-address = 127.0.0.1</code></p></li>
+<li><p>Restart the DB<br/>
+<code>sudo /etc/init.d/mysql restart</code></p></li>
+</ol>
+
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[how to use the SSH in the proxy env]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/04/14/how-to-use-the-ssh-in-the-proxy-env/"/>
+    <updated>2012-04-14T11:22:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/04/14/how-to-use-the-ssh-in-the-proxy-env</id>
+    <content type="html"><![CDATA[<p>Sometimes you are working in the coperation dev environemnt and you found you stay behind the firewall, some ports are blocked, such as 22, and you have to access internet via corperation proxy server, but you do need to use ssh to connect some site outside of office. This post will provide you a solution to use SSH in the proxy environment.</p>
+
+<p><strong>This post imagin that you work with Mac env</strong></p>
+
+<h5>1. Install <a href="http://www.agroman.net/corkscrew/">corkscrew</a>:</h5>
+
+<pre><code>./configure -host=apple
+make
+make install
+</code></pre>
+
+<p>it will be installed in /usr/local/corkscrew by default.</p>
+
+<h5>2. Config proxy information In <em>System preference</em></h5>
+
+<h5>3.     Setup the SSH config info</h5>
+
+<pre><code>echo 'ProxyCommand /usr/local/bin/corkscrew your.proxy.server 8080 %h %p' &gt;&gt; ~/.ssh/config
+</code></pre>
+
+<h5>4. Test with</h5>
+
+<pre><code>ssh xx@xxx.com
+</code></pre>
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[25个必须记住的SSH命令]]></title>
+    <link href="http://seawaywen.github.com/blog/2011/08/03/25-useful-ssh-commands/"/>
+    <updated>2011-08-03T01:15:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2011/08/03/25-useful-ssh-commands</id>
+    <content type="html"><![CDATA[<p>OpenSSH是SSH连接工具的免费版本。telnet，rlogin和ftp用户可能还没意识到他们在互联网上传输的密码是未加密的，但SSH是加密的，OpenSSH加密所有通信（包括密码），有效消除了窃听，连接劫持和其它攻击。此外，OpenSSH提供了安全隧道功能和多种身份验证方法，支持SSH协议的所有版本。</p>
+
+<p>SSH是一个非常伟大的工具，如果你要在互联网上远程连接到服务器，那么SSH无疑是最佳的候选。下面是通过网络投票选出的25个最佳SSH命令，你必须牢记于心。</p>
+
+<ul>
+<li>复制SSH密钥到目标主机，开启无密码SSH登录</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh-copy-id user@host</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果还没有密钥，请使用ssh-keygen命令生成。</p>
+
+<ul>
+<li>从某主机的80端口开启到本地主机2001端口的隧道</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -N -L2001:localhost:80 somemachine</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在你可以直接在浏览器中输入http://localhost:2001访问这个网站。</p>
+
+<ul>
+<li>将你的麦克风输出到远程计算机的扬声器</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dd if=/dev/dsp | ssh -c arcfour -C username@host dd of=/dev/dsp</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样来自你麦克风端口的声音将在SSH目标计算机的扬声器端口输出，但遗憾的是，声音质量很差，你会听到很多嘶嘶声。</p>
+
+<ul>
+<li>比较远程和本地文件</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh user@host cat /path/to/remotefile | diff /path/to/localfile –</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在比较本地文件和远程文件是否有差异时这个命令很管用。</p>
+
+<!-- more -->
+
+
+<ul>
+<li>通过SSH挂载目录/文件系统</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sshfs name@server:/path/to/folder /path/to/mount/point</span></code></pre></td></tr></table></div></figure>
+
+
+<p>从<a href="http://fuse.sourceforge.net/sshfs.html">http://fuse.sourceforge.net/sshfs.html</a>下载sshfs，它允许你跨网络安全挂载一个目录。</p>
+
+<ul>
+<li>通过中间主机建立SSH连接</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -t reachable_host ssh unreachable_host</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Unreachable_host表示从本地网络无法直接访问的主机，但可以从reachable_host所在网络访问，这个命令通过到reachable_host的“隐藏”连接，创建起到unreachable_host的连接。</p>
+
+<ul>
+<li>将你的SSH公钥复制到远程主机，开启无密码登录 – 简单的方法</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh-copy-id username@hostname</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>直接连接到只能通过主机B连接的主机A</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -t hostA ssh hostB</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当然，你要能访问主机A才行。</p>
+
+<ul>
+<li>创建到目标主机的持久化连接</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -MNf &lt;user&gt;@&lt;host&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在后台创建到目标主机的持久化连接，将这个命令和你~/.ssh/config中的配置结合使用：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Host host
+</span><span class='line'>ControlPath ~/.ssh/master-%r@%h:%p
+</span><span class='line'>ControlMaster no</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所有到目标主机的SSH连接都将使用持久化SSH套接字，如果你使用SSH定期同步文件（使用rsync/sftp/cvs/svn），这个命令将非常有用，因为每次打开一个SSH连接时不会创建新的套接字。</p>
+
+<ul>
+<li>通过SSH连接屏幕</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -t remote_host screen –r</span></code></pre></td></tr></table></div></figure>
+
+
+<p>直接连接到远程屏幕会话（节省了无用的父bash进程）。</p>
+
+<ul>
+<li>端口检测（敲门）</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knock &lt;host&gt; 3000 4000 5000 && ssh -p &lt;port&gt; user@host && knock &lt;host&gt; 5000 4000 3000</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在一个端口上敲一下打开某个服务的端口（如SSH），再敲一下关闭该端口，需要先安装knockd，下面是一个配置文件示例。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[options]
+</span><span class='line'>logfile = /var/log/knockd.log
+</span><span class='line'>[openSSH]
+</span><span class='line'>sequence = 3000,4000,5000
+</span><span class='line'>seq_timeout = 5
+</span><span class='line'>command = /sbin/iptables -A INPUT -i eth0 -s %IP% -p tcp –dport 22 -j ACCEPT
+</span><span class='line'>tcpflags = syn
+</span><span class='line'>[closeSSH]
+</span><span class='line'>sequence = 5000,4000,3000
+</span><span class='line'>seq_timeout = 5
+</span><span class='line'>command = /sbin/iptables -D INPUT -i eth0 -s %IP% -p tcp –dport 22 -j ACCEPT
+</span><span class='line'>tcpflags = syn</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>删除文本文件中的一行内容，有用的修复</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh-keygen -R &lt;the_offending_host&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在这种情况下，最好使用专业的工具。</p>
+
+<ul>
+<li>通过SSH运行复杂的远程shell命令</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh host -l user $(&lt;cmd.txt)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>更具移植性的版本：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh host -l user “`cat cmd.txt`”</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>通过SSH将MySQL数据库复制到新服务器</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mysqldump –add-drop-table –extended-insert –force –log-error=error.log -uUSER -pPASS OLD_DB_NAME | ssh -C user@newhost “mysql -uUSER -pPASS NEW_DB_NAME”</span></code></pre></td></tr></table></div></figure>
+
+
+<p>通过压缩的SSH隧道Dump一个MySQL数据库，将其作为输入传递给mysql命令，我认为这是迁移数据库到新服务器最快最好的方法。</p>
+
+<ul>
+<li>删除文本文件中的一行，修复“SSH主机密钥更改”的警告</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sed -i 8d ~/.ssh/known_hosts</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>从一台没有SSH-COPY-ID命令的主机将你的SSH公钥复制到服务器</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat ~/.ssh/id_rsa.pub | ssh user@machine “mkdir ~/.ssh; cat &gt;&gt; ~/.ssh/authorized_keys”</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果你使用Mac OS X或其它没有ssh-copy-id命令的*nix变种，这个命令可以将你的公钥复制到远程主机，因此你照样可以实现无密码SSH登录。</p>
+
+<ul>
+<li>实时SSH网络吞吐量测试</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yes | pv | ssh $host “cat &gt; /dev/null”</span></code></pre></td></tr></table></div></figure>
+
+
+<p>通过SSH连接到主机，显示实时的传输速度，将所有传输数据指向/dev/null，需要先安装pv。</p>
+
+<p>如果是Debian：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get install pv</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果是Fedora：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yum install pv</span></code></pre></td></tr></table></div></figure>
+
+
+<p>（可能需要启用额外的软件仓库）。</p>
+
+<ul>
+<li>如果建立一个可以重新连接的远程GNU screen</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -t user@some.domain.com /usr/bin/screen –xRR</span></code></pre></td></tr></table></div></figure>
+
+
+<p>人们总是喜欢在一个文本终端中打开许多shell，如果会话突然中断，或你按下了<code>Ctrl-a d</code>，远程主机上的shell不会受到丝毫影响，你可以重新连接，其它有用的screen命令有<code>Ctrl-a c</code>（打开新的shell）和<code>Ctrl-a a</code>（在shell之间来回切换），请访问<a href="http://aperiodic.net/screen/quick_reference">http://aperiodic.net/screen/quick_reference</a>阅读更多关于screen命令的快速参考。</p>
+
+<ul>
+<li>继续SCP大文件</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rsync –partial –progress –rsh=ssh $file_source $user@$host:$destination_file</span></code></pre></td></tr></table></div></figure>
+
+
+<p>它可以恢复失败的rsync命令，当你通过VPN传输大文件，如备份的数据库时这个命令非常有用，需要在两边的主机上安装rsync。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rsync –partial –progress –rsh=ssh $file_source $user@$host:$destination_file local -&gt; remote</span></code></pre></td></tr></table></div></figure>
+
+
+<p>或</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rsync –partial –progress –rsh=ssh $user@$host:$remote_file $destination_file remote -&gt; local</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>通过SSH W/ WIRESHARK分析流量</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh root@server.com ‘tshark -f “port !22″ -w -' | wireshark -k -i –</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用tshark捕捉远程主机上的网络通信，通过SSH连接发送原始pcap数据，并在wireshark中显示，按下Ctrl+C将停止捕捉，但也会关闭wireshark窗口，可以传递一个“-c #”参数给tshark，让它只捕捉“#”指定的数据包类型，或通过命名管道重定向数据，而不是直接通过SSH传输给wireshark，我建议你过滤数据包，以节约带宽，tshark可以使用tcpdump替代：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh root@example.com tcpdump -w – ‘port !22′ | wireshark -k -i –</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>保持SSH会话永久打开</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>autossh -M50000 -t server.example.com ‘screen -raAd mysession’</span></code></pre></td></tr></table></div></figure>
+
+
+<p>打开一个SSH会话后，让其保持永久打开，对于使用笔记本电脑的用户，如果需要在Wi-Fi热点之间切换，可以保证切换后不会丢失连接。</p>
+
+<ul>
+<li>更稳定，更快，更强的SSH客户端</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -4 -C -c blowfish-cbc</span></code></pre></td></tr></table></div></figure>
+
+
+<p>强制使用IPv4，压缩数据流，使用Blowfish加密。</p>
+
+<ul>
+<li>使用cstream控制带宽</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>tar -cj /backup | cstream -t 777k | ssh host ‘tar -xj -C /backup’</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用bzip压缩文件夹，然后以777k bit/s速率向远程主机传输。Cstream还有更多的功能，请访问<a href="http://www.cons.org/cracauer/cstream.html#usage">http://www.cons.org/cracauer/cstream.html#usage</a>了解详情，例如：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo w00t, i’m 733+ | cstream -b1 -t2</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>一步将SSH公钥传输到另一台机器</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh-keygen; ssh-copy-id user@host; ssh user@host</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个命令组合允许你无密码SSH登录，注意，如果在本地机器的~/.ssh目录下已经有一个SSH密钥对，ssh-keygen命令生成的新密钥可能会覆盖它们，ssh-copy-id将密钥复制到远程主机，并追加到远程账号的~/.ssh/authorized_keys文件中，使用SSH连接时，如果你没有使用密钥口令，调用<code>ssh user@host</code>后不久就会显示远程shell。</p>
+
+<ul>
+<li>将标准输入（stdin）复制到你的X11缓冲区</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh user@host cat /path/to/some/file | xclip</span></code></pre></td></tr></table></div></figure>
+
+
+<p>你是否使用scp将文件复制到工作用电脑上，以便复制其内容到电子邮件中？xclip可以帮到你，它可以将标准输入复制到X11缓冲区，你需要做的就是点击鼠标中键粘贴缓冲区中的内容。</p>
+
+<p>Done</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to Fix Error when Install Fabric]]></title>
+    <link href="http://seawaywen.github.com/blog/2011/08/02/how-to-fix-error-when-install-fabric/"/>
+    <updated>2011-08-02T23:04:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2011/08/02/how-to-fix-error-when-install-fabric</id>
+    <content type="html"><![CDATA[<pre><code>Installing collected packages: pycrypto, paramiko
+Running setup.py install for pycrypto
+warning: GMP library not found; Not building Crypto.PublicKey._fastmath.
+building 'Crypto.Hash.MD2' extension
+gcc-4.2 -fno-strict-aliasing -fno-common -dynamic -fwrapv -Wall -Wstrict-prototypes -DENABLE_DTRACE -arch i386 -arch ppc -arch x86_64 -pipe -std=c99 -O3 -fomit-frame-pointer -Isrc/ -I/System/Library/Frameworks/Python.framework/Versions/2.6/include/python2.6 -c src/MD2.c -o build/temp.macosx-10.6-universal-2.6/src/MD2.o
+/usr/libexec/gcc/powerpc-apple-darwin10/4.2.1/as: assembler (/usr/bin/../local/libexec/as/ppc/as or /usr/bin/../local/libexec/gcc/darwin/ppc/as) for architecture ppc not installed
+Installed assemblers are:
+/usr/bin/../libexec/as/x86_64/as for architecture x86_64
+/usr/bin/../libexec/as/i386/as for architecture i386
+/usr/bin/../libexec/as/arm/as for architecture arm
+src/MD2.c:134: fatal error: error writing to -: Broken pipe
+compilation terminated.
+lipo: can't open input file: /var/tmp//cc2qfvbZ.out (No such file or directory)
+error: command 'gcc-4.2' failed with exit status 1
+Complete output from command /usr/bin/python -c "import setuptools;__file__='/Users/Kelvin/build/pycrypto/setup.py';execfile(__file__)" install --single-version-externally-managed --record /tmp/pip-4O2Z1I-record/install-record.txt:
+running install
+.....
+
+lipo: can't open input file: /var/tmp//cc1IbrXz.out (No such file or directory)
+
+error: command 'gcc-4.2' failed with exit status 1
+</code></pre>
+
+<p>WHEN YOU GOT ABOVE ERROR WHEN YOU INSTALL THE FABRIC, REFER TO THE FOLLOWING COMMAND:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo ARCHFLAGS="-arch i386 -arch x86_64" pip install Fabric</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Reason</strong>: in Xcode 4, gcc removed the -arch ppc</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to fix the compile error when use narwhal-jsc as Jake Engine in Cappuccino]]></title>
+    <link href="http://seawaywen.github.com/blog/2011/07/31/how-to-fix-the-compile-error-when-use-narwhal-jsc-as-jake-engine-in-cappuccino/"/>
+    <updated>2011-07-31T11:09:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2011/07/31/how-to-fix-the-compile-error-when-use-narwhal-jsc-as-jake-engine-in-cappuccino</id>
+    <content type="html"><![CDATA[<p>When you use the narwhal-jsc as your jake Engine, compile with the following errors:</p>
+
+<pre><code>Making all in examples
+Make[3]: *** No rule to make target `../src/libedit.la', needed by `tc1'. Stop.
+make[2]: *** [all-recursive] Error 1
+make[1]: *** [all] Error 2
+make: *** [deps/libedit-20100424-3.0/src/.libs/libedit.dylib] Error 2
+</code></pre>
+
+<h3>Solution to fix:</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.tusk install narwhal-jsc
+</span><span class='line'>2.go to narwhal/packages/narwhal-jsc
+</span><span class='line'>3.go to deps/libedit20100424-3.0(may be different from this version number)
+</span><span class='line'>4.sudo autoreconf --force --install
+</span><span class='line'>5. ./configure
+</span><span class='line'>6. sudo make (with compile error, don't care about it)
+</span><span class='line'>7. go back to narwhal/packages/narwhal-jsc
+</span><span class='line'>8. make webkit (compile successfully)
+</span><span class='line'>9. ln -s narwhal/packages/narwhal-jsc/bin/narwhial-jsc narwhal/bin
+</span><span class='line'>10. export NARWHAL_ENGINE=jsc (add to ~/.profile)
+</span><span class='line'>11. source ~/.profile
+</span><span class='line'>12. open a new terminal and run jake (it works)</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MySQLdb missing image error from PyCharm IDE when django sync]]></title>
+    <link href="http://seawaywen.github.com/blog/2011/07/25/mysqldb-missing-image-error-from-pycharm-ide-when-django-sync/"/>
+    <updated>2011-07-25T11:48:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2011/07/25/mysqldb-missing-image-error-from-pycharm-ide-when-django-sync</id>
+    <content type="html"><![CDATA[<h3>Solution:</h3>
+
+<p>You can set the environment used by launchd (and, by extension, anything started from Spotlight) with launchctl setenv.</p>
+
+<p>For example to set the path:</p>
+
+<pre><code>launchctl setenv PATH /opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+</code></pre>
+
+<p>Or if you want to set up your path in .bashrc or similar, then have it mirrored in launchd:</p>
+
+<pre><code>PATH=/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+
+launchctl setenv PATH $PATH
+</code></pre>
+
+<p>There&#8217;s no need to reboot (though you will need to restart an app if you want it to pick up the changed environment.)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Common useful commands collection]]></title>
+    <link href="http://seawaywen.github.com/blog/2011/04/22/common-useful-commands-collection/"/>
+    <updated>2011-04-22T14:49:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2011/04/22/common-useful-commands-collection</id>
+    <content type="html"><![CDATA[<ul>
+<li>Copy remote single file to local</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>scp username@host:/Users/xx/copyFile ./localDir</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Copy remote directory to local</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>scp -R username@host:/Users/xx/copyFile ./localDir</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Delete all .svn folders recursively in current directory (Include the files in folders)</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>find ./ -name ".svn" -type d -exec rm -rf {} \;</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Delete all dep file</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>find . -name *.dep -type f -exec rm -f {} \;</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Restart apache in Mac</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apachectl restart</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to setup the Dyndns on the TimeCapsule]]></title>
+    <link href="http://seawaywen.github.com/blog/2011/04/15/how-to-setup-the-dyndns-on-the-timecapsule/"/>
+    <updated>2011-04-15T16:39:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2011/04/15/how-to-setup-the-dyndns-on-the-timecapsule</id>
+    <content type="html"><![CDATA[<p>I&#8217;ve bought the Dynamic DNS service from <a href="http://www.dyndns.com">DynDNS</a>, and I&#8217;d like the host my own Mac mini with this service, so that I can access my server out of home.</p>
+
+<p>I hsot my home network with TimeCapsule which is Apple&#8217;s router product.</p>
+
+<p>I refer to the following link to setup DynDNS server succesfully:<br/>
+<a href="http://www.dyndns.com/support/kb/apple_airport_with_custom_dns.html">http://www.dyndns.com/support/kb/apple_airport_with_custom_dns.html</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[show hidden files in Finder]]></title>
+    <link href="http://seawaywen.github.com/blog/2011/02/16/show-hidden-files-in-finder/"/>
+    <updated>2011-02-16T12:27:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2011/02/16/show-hidden-files-in-finder</id>
+    <content type="html"><![CDATA[<h3>Enable showing hidden files in finder</h3>
+
+<pre><code>defaults write com.apple.finder AppleShowAllFiles - bool true
+
+KillAll Finder
+</code></pre>
+
+<h3>disable showing hidden files in finder</h3>
+
+<pre><code>defaults write com.apple.finder AppleShowAllFiles - bool false
+
+KillAll Finder
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

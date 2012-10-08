@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: linux | Kelvin Li]]></title>
+  <link href="http://seawaywen.github.com/blog/categories/linux/atom.xml" rel="self"/>
+  <link href="http://seawaywen.github.com/"/>
+  <updated>2012-10-08T18:37:54+08:00</updated>
+  <id>http://seawaywen.github.com/</id>
+  <author>
+    <name><![CDATA[Kelvin Li]]></name>
+    <email><![CDATA[kelvin@memodir.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Tar command usage]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/08/23/tar-command-usage/"/>
+    <updated>2012-08-23T22:02:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/08/23/tar-command-usage</id>
+    <content type="html"><![CDATA[<p>Create the tar file</p>
+
+<pre><code>tar -czvp -f archive.tar.gz foo bar # Create archive.tar.gz from files foo and bar with the preserved permission,
+tar -cjvp -f archive.tar.bz2 foo bar 
+</code></pre>
+
+<p>How to split the file:</p>
+
+<pre><code>split -b 4000k archive.tar.gz archive.20120829.tar.gz. -verbose
+
+creating file 'archive.20120829.tar.gz.aa'
+creating file 'archive.20120829.tar.gz.ab'
+creating file 'archive.20120829.tar.gz.ac'
+...
+</code></pre>
+
+<p>We can merge above 2 commands as one with the pipe | as following:</p>
+
+<pre><code>tar -czvp -f -- archive.tar.gz foo bar |split -b 4000k -- archive.tar.gz archive.20120829.tar.gz. -verbose
+
+tar -tvf archive.tar # List all files in archive.tar verbosely.
+</code></pre>
+
+<p>How to exact the split tar files?</p>
+
+<pre><code>cat archive.20120829.tar.gz.a* &gt; archive.20120829.tar.gz
+
+cat archive.20120829.tar.gz.a* |tar -zxv
+</code></pre>
+
+<p><strong>Strange ISSUE</strong>:</p>
+
+<p>Under Mac OS, when you <code>tar cfv xx.tar xx</code>, you have some strange extra files start with ._xxx generated.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Start service automatically on linux server]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/05/17/how-to-start-service-automatically-on-linux-server/"/>
+    <updated>2012-05-17T14:52:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/05/17/how-to-start-service-automatically-on-linux-server</id>
+    <content type="html"><![CDATA[<h3>Add the service as automatically startup</h3>
+
+<ol>
+<li>copy the startup script to <code>/etc/init.d</code></li>
+<li><code>sudo chmod 755 /etc/init.d/your_script</code></li>
+<li>run the following commonds<br/>
+<code>
+cd /etc/init.d
+sudo upate-rc.d your_script defaults xx(xx is the start sequence number)
+</code></li>
+</ol>
+
+
+<h3>Remove the startup service</h3>
+
+<p><code>
+cd /etc/init.d
+sudo update-rc.d -f your_script remove
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Common useful commands collection]]></title>
+    <link href="http://seawaywen.github.com/blog/2011/04/22/common-useful-commands-collection/"/>
+    <updated>2011-04-22T14:49:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2011/04/22/common-useful-commands-collection</id>
+    <content type="html"><![CDATA[<ul>
+<li>Copy remote single file to local<br/>
+<code>
+scp username@host:/Users/xx/copyFile ./localDir
+</code></li>
+<li>Copy remote directory to local<br/>
+<code>
+scp -R username@host:/Users/xx/copyFile ./localDir
+</code></li>
+<li>Delete all .svn folders recursively in current directory (Include the files in folders)<br/>
+<code>
+find ./ -name ".svn" -type d -exec rm -rf {} \;
+</code></li>
+<li>Delete all dep file<br/>
+<code>
+find . -name *.dep -type f -exec rm -f {} \;
+</code></li>
+<li>Restart apache in Mac<br/>
+<code>
+sudo apachectl restart
+</code></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

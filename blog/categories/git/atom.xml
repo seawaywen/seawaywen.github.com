@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: git | Kelvin Li]]></title>
+  <link href="http://seawaywen.github.com/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://seawaywen.github.com/"/>
+  <updated>2012-10-08T18:37:54+08:00</updated>
+  <id>http://seawaywen.github.com/</id>
+  <author>
+    <name><![CDATA[Kelvin Li]]></name>
+    <email><![CDATA[kelvin@memodir.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Tips for git repository migration to other server]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/08/29/tips-for-git-repository-migration-to-other-server/"/>
+    <updated>2012-08-29T14:40:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/08/29/tips-for-git-repository-migration-to-other-server</id>
+    <content type="html"><![CDATA[<p>Recently I am going to use the private git repository that hosting on the <a href="http://www.webfaction.com">webfaction</a> from my own server. During the migration I met some issues, here are some tips should be noticed.</p>
+
+<p>When create the new repository, don't forget:</p>
+
+<pre><code>git config http.receivepack true
+</code></pre>
+
+<p>If you are using the SSL on the GIT server without certificate signed by CA, you <strong>SHOULD</strong> do these in your local box:</p>
+
+<pre><code>export GIT_SSL_NO_VERIFY=true
+git clone https://demo@your_git_site_url/project.git
+</code></pre>
+
+<p>Then, disable SSL certificate verification for the repository to enable push and pull operations:</p>
+
+<pre><code>switch to the repository directory
+git config http.sslVerify false
+</code></pre>
+
+<p>And of course when you get error:</p>
+
+<p><code>SSL certificate problem, verify that the CA cert is OK.</code> <code>Details: error:14090086:SSL</code>   <br/>
+<code>routines:SSL3_GET_SERVER_CERTIFICATE:certificate verify failed while accessing</code></p>
+
+<p>You can config gloablly:</p>
+
+<pre><code>git config --global http.sslVerify false
+</code></pre>
+
+<!-- more -->
+
+
+<p>When you clone the repository from the server, and you got the following error message:</p>
+
+<p><code>./objects/pack/._pack-de7d2e641423ddac38ff369dae6afad9f02d4397.idx is too small</code></p>
+
+<p><code>error: index file /home/joe/site/.git/objects/pack/._pack-de7d2e641423ddac38ff369dae6afad9f02d4397.idx is too small</code></p>
+
+<p>What you should do is run the following commands in your local repository:</p>
+
+<pre><code>git config repack.usedeltabaseoffset false
+git repack -a -d
+</code></pre>
+
+<p>If you have Error:</p>
+
+<p><code>RPC failed; result=22, HTTP code = 411</code></p>
+
+<p>do as following:</p>
+
+<pre><code>git config http.postBuffer 524288000 #Permit pushes up to 500 megabytes
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to push to multiple git repositories at one time]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/08/29/how-to-push-to-multiple-git-repositories-at-one-time/"/>
+    <updated>2012-08-29T14:10:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/08/29/how-to-push-to-multiple-git-repositories-at-one-time</id>
+    <content type="html"><![CDATA[<p>I have 2 different repositories now on the different server, now I want one of them to be the backup. Two solutions are in my mind.</p>
+
+<ol>
+<li>Sync the repository periodically</li>
+<li>Each time when push the changes, both of the repositoy should be pushed</li>
+</ol>
+
+
+<p>Here you can follow this handy trick to keep your updates on each your GIT server with one push:</p>
+
+<p><strong>In .git/config file:</strong></p>
+
+<pre><code>[remote "all"]
+url = kelvin@git.xxx.com:sample.git
+url = kelvin@git.yyy.com::sample.git
+
+[remote "origin"]
+fetch = +refs/heads/*:refs/remotes/origin/*
+url = kelvin@git.xxx.com:sample.git
+
+[remote "github"]
+fetch = +refs/heads/*:refs/remotes/github/*
+url = kelvin@git.yyy.com::sample.git
+</code></pre>
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+</feed>

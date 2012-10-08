@@ -1,1 +1,790 @@
-My Octopress Page is coming soon &hellip;
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Kelvin Li</title>
+  <meta name="author" content="Kelvin Li">
+
+  
+  <meta name="description" content="Today I have python issue after upgrading to the Moutain Lion. I want to create a new virtual python evironment with virtualenv, but I got this error &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://seawaywen.github.com/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Kelvin Li" type="application/atom+xml">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35338052-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <div id="logo">
+  	<div id="logoLeft">{</div>
+  	<div id="logoText"> I am </div>
+  	<div id="logoRight">}</div>
+  	<div class="clear"></div>
+  </div>
+  <h1><a href="/">Kelvin Li</a></h1>
+  
+  <div class="clear"></div>
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:seawaywen.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2012/09/16/python-env-issue-on-mountain-lion/">Python Env Issue on Mac (Mountain Lion)</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-16T20:51:00+08:00" pubdate data-updated="true">Sep 16<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Today I have python issue after upgrading to the Moutain Lion. I want to create a new virtual python evironment with virtualenv, but I got this error:</p>
+
+<pre><code>Traceback (most recent call last): File "/Library/Python/2.7/site-packages/pip-1.2-py2.7.egg/pip/
+basecommand.py", line 106, in main status = self.run(options, args) File "/Library/Python/2.7/
+site-packages/pip-1.2-py2.7.egg/pip/commands/install.py", line 248, in run import setuptools
+ImportError: No module named setuptools
+</code></pre>
+
+<p>After google the issue, I got the solution, the root cause is that Apple remove the source code of Python in Mountain Lion, and some libs depend on the .py files.</p>
+
+<p>Try this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -O http://python-distribute.org/distribute_setup.py 
+</span><span class='line'>/usr/bin/python2.7 distribute_setup.py    
+</span><span class='line'>sudo pip install pip --upgrade</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>Done.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2012/09/03/how-to-setup-a-https-site/">How to Setup a HTTPS Site</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-03T18:29:00+08:00" pubdate data-updated="true">Sep 3<span>rd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recently I am going to use SSL on my site. Some important steps were record here for your information.</p>
+
+<h4>Generate CSR (Certificate Signing Request)</h4>
+
+<pre><code>openssl genrsa -out domain.key 2048
+openssl req -new -key domain.key -out domain.csr
+</code></pre>
+
+<p><strong>To be continue</strong>&#8230;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2012/08/29/tips-for-git-repository-migration-to-other-server/">Tips for Git Repository Migration to Other Server</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-29T14:40:00+08:00" pubdate data-updated="true">Aug 29<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recently I am going to use the private git repository that hosting on the <a href="http://www.webfaction.com">webfaction</a> from my own server. During the migration I met some issues, here are some tips should be noticed.</p>
+
+<p>When create the new repository, don&#8217;t forget:</p>
+
+<pre><code>git config http.receivepack true
+</code></pre>
+
+<p>If you are using the SSL on the GIT server without certificate signed by CA, you <strong>SHOULD</strong> do these in your local box:</p>
+
+<pre><code>export GIT_SSL_NO_VERIFY=true
+git clone https://demo@your_git_site_url/project.git
+</code></pre>
+
+<p>Then, disable SSL certificate verification for the repository to enable push and pull operations:</p>
+
+<pre><code>switch to the repository directory
+git config http.sslVerify false
+</code></pre>
+
+<p>And of course when you get error:</p>
+
+<p><code>SSL certificate problem, verify that the CA cert is OK.</code> <code>Details: error:14090086:SSL</code>   <br/>
+<code>routines:SSL3_GET_SERVER_CERTIFICATE:certificate verify failed while accessing</code></p>
+
+<p>You can config gloablly:</p>
+
+<pre><code>git config --global http.sslVerify false
+</code></pre>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/08/29/tips-for-git-repository-migration-to-other-server/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2012/08/29/how-to-push-to-multiple-git-repositories-at-one-time/">How to Push to Multiple Git Repositories at One Time</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-29T14:10:00+08:00" pubdate data-updated="true">Aug 29<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have 2 different repositories now on the different server, now I want one of them to be the backup. Two solutions are in my mind.</p>
+
+<ol>
+<li>Sync the repository periodically</li>
+<li>Each time when push the changes, both of the repositoy should be pushed</li>
+</ol>
+
+
+<p>Here you can follow this handy trick to keep your updates on each your GIT server with one push:</p>
+
+<p><strong>In .git/config file:</strong></p>
+
+<pre><code>[remote "all"]
+url = kelvin@git.xxx.com:sample.git
+url = kelvin@git.yyy.com::sample.git
+
+[remote "origin"]
+fetch = +refs/heads/*:refs/remotes/origin/*
+url = kelvin@git.xxx.com:sample.git
+
+[remote "github"]
+fetch = +refs/heads/*:refs/remotes/github/*
+url = kelvin@git.yyy.com::sample.git
+</code></pre>
+
+<p>Done.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2012/08/23/tar-command-usage/">Tar Command Usage</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-23T22:02:00+08:00" pubdate data-updated="true">Aug 23<span>rd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Create the tar file</p>
+
+<pre><code>tar -czvp -f archive.tar.gz foo bar # Create archive.tar.gz from files foo and bar with the preserved permission,
+tar -cjvp -f archive.tar.bz2 foo bar 
+</code></pre>
+
+<p>How to split the file:</p>
+
+<pre><code>split -b 4000k archive.tar.gz archive.20120829.tar.gz. -verbose
+
+creating file 'archive.20120829.tar.gz.aa'
+creating file 'archive.20120829.tar.gz.ab'
+creating file 'archive.20120829.tar.gz.ac'
+...
+</code></pre>
+
+<p>We can merge above 2 commands as one with the pipe | as following:</p>
+
+<pre><code>tar -czvp -f -- archive.tar.gz foo bar |split -b 4000k -- archive.tar.gz archive.20120829.tar.gz. -verbose
+
+tar -tvf archive.tar # List all files in archive.tar verbosely.
+</code></pre>
+
+<p>How to exact the split tar files?</p>
+
+<pre><code>cat archive.20120829.tar.gz.a* &gt; archive.20120829.tar.gz
+
+cat archive.20120829.tar.gz.a* |tar -zxv
+</code></pre>
+
+<p><strong>Strange ISSUE</strong>:</p>
+
+<p>Under Mac OS, when you <code>tar cfv xx.tar xx</code>, you have some strange extra files start with ._xxx generated.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2012/08/16/install-pil-on-ubuntu/">Install PIL on Ubuntu</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-16T22:59:00+08:00" pubdate data-updated="true">Aug 16<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Install the build dependencies:</p>
+
+<pre><code>sudo apt-get build-dep python-imaging
+</code></pre>
+
+<p>Symlink the libraries:</p>
+
+<pre><code>sudo ln -s /usr/lib/`uname -i`-linux-gnu/libfreetype.so /usr/lib/
+sudo ln -s /usr/lib/`uname -i`-linux-gnu/libjpeg.so /usr/lib/
+sudo ln -s /usr/lib/`uname -i`-linux-gnu/libz.so /usr/lib/
+</code></pre>
+
+<p>Install:</p>
+
+<pre><code>pip install PIL
+</code></pre>
+
+<p>Done.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2012/08/05/setup-postgres-on-ubuntu/">Setup Postgres on Ubuntu</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-05T15:46:00+08:00" pubdate data-updated="true">Aug 5<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h5>1. Change the pg_hda.conf</h5>
+
+<pre><code>/etc/postgresql/9.1/main/pg_hba.conf
+host all all 172.22.2.0/24 md5
+</code></pre>
+
+<h5>2.Change the <code>/etc/postgresql/9.1/main/postgresql.conf</code></h5>
+
+<pre><code>listen_addresses = '*'
+</code></pre>
+
+<h5>3.Change the postgres user&#8217;s password</h5>
+
+<pre><code>sudo su postgres -c psql template1
+ALTER USER postgres WITH PASSWORD ' &lt;***password***&gt; ';
+</code></pre>
+
+<h5>4.sudo passwd postgres</h5>
+
+<h5>5.Restart the db server</h5>
+
+<pre><code>sudo /etc/init.d/
+</code></pre>
+
+<h5>6.Create the database</h5>
+
+<pre><code>su postgres
+createdb mydb
+</code></pre>
+
+<p>refer to:<a href="https://help.ubuntu.com/11.04/serverguide/postgresql.html">https://help.ubuntu.com/11.04/serverguide/postgresql.html</a></p>
+
+<p>Done.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2012/07/22/delete-files-with-find-results/">Delete Files With Find Results</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-22T12:48:00+08:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>When you tried to delete all files with the name abc.txt under the folder /home/kelvin, try the following commands(one of them works):</p>
+
+<pre><code>find /home/kelvin -name abc.txt | xargs rm -rf
+find /home//kelvin -name abc.txt -exec rm -fv {} \;
+</code></pre>
+
+<p>Refer the doc: <a href="http://www.linuxsir.org/main/?q=node/137">http://www.linuxsir.org/main/?q=node/137</a></p>
+
+<p>Done.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2012/05/18/create-compile-and-use-static-library-with-xcode-on-mac/">制作，编译和使用静态库</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-18T12:47:00+08:00" pubdate data-updated="true">May 18<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>很多情况下，我们从网上得到的是一个纯C的代码包，他们这些库，往往是各种平台通用，代码包<code>svn checkout</code>出来后，里面有<code>makefile</code>, <code>vcproject file</code> 等。</p>
+
+<p>但往往我们先README看过之后，通过</p>
+
+<pre><code>./configure make make install  
+</code></pre>
+
+<p>来实现编译生成了一个库。（注意一些基本语法 ./confiure后如果带 &#8211;<code>prefix=/path/to/your/custom/dir</code> 表明自定义安装路径。）</p>
+
+<p>那么在这样的情况下，我们第一个首先会遇到的问题，就是这个库格式不兼容。</p>
+
+<p>我们添加了这个库到project后编译时，显示</p>
+
+<pre><code>this file format doesn't support (i386)。  
+</code></pre>
+
+<p>这个情况，是由于大部分snow leopard是INTEL DUO CPU，双核x86_64的，一般很多库，不加特别标注，都以为你开发了为MAC电脑开发程序，所以库都默认为x86_64位的静态库。如果你好奇，可以new一个MAC开发程序的project，试着看看那个库能不能正常编译，没有warning就知道了。</p>
+
+<p>当然，还有一个命令行来检测你编译的库，可以使用在什么平台架构下。
+方法如下：</p>
+
+<pre><code>lipo -info /path/to/your/library.a
+</code></pre>
+
+<p>即可看到此库位i386, x86_64, arm等等。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/05/18/create-compile-and-use-static-library-with-xcode-on-mac/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2012/05/17/how-to-start-service-automatically-on-linux-server/">Start Service Automatically on Linux Server</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-17T14:52:00+08:00" pubdate data-updated="true">May 17<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Add the service as automatically startup</h3>
+
+<ol>
+<li>copy the startup script to <code>/etc/init.d</code></li>
+<li><code>sudo chmod 755 /etc/init.d/your_script</code></li>
+<li>run the following commonds</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/init.d
+</span><span class='line'>sudo upate-rc.d your_script defaults xx(xx is the start sequence number)</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Remove the startup service</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/init.d
+</span><span class='line'>sudo update-rc.d -f your_script remove</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/09/16/python-env-issue-on-mountain-lion/">Python env issue on Mac (Mountain Lion)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/03/how-to-setup-a-https-site/">How to setup a HTTPS site</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/08/29/tips-for-git-repository-migration-to-other-server/">Tips for git repository migration to other server</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/08/29/how-to-push-to-multiple-git-repositories-at-one-time/">How to push to multiple git repositories at one time</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/08/23/tar-command-usage/">Tar command usage</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/seawaywen">@seawaywen</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'seawaywen',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Kelvin Li @memodir
+  <!--span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span-->
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

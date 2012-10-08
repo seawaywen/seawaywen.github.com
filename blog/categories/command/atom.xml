@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: command | Kelvin Li]]></title>
+  <link href="http://seawaywen.github.com/blog/categories/command/atom.xml" rel="self"/>
+  <link href="http://seawaywen.github.com/"/>
+  <updated>2012-10-08T18:37:54+08:00</updated>
+  <id>http://seawaywen.github.com/</id>
+  <author>
+    <name><![CDATA[Kelvin Li]]></name>
+    <email><![CDATA[kelvin@memodir.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Tar command usage]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/08/23/tar-command-usage/"/>
+    <updated>2012-08-23T22:02:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/08/23/tar-command-usage</id>
+    <content type="html"><![CDATA[<p>Create the tar file</p>
+
+<pre><code>tar -czvp -f archive.tar.gz foo bar # Create archive.tar.gz from files foo and bar with the preserved permission,
+tar -cjvp -f archive.tar.bz2 foo bar 
+</code></pre>
+
+<p>How to split the file:</p>
+
+<pre><code>split -b 4000k archive.tar.gz archive.20120829.tar.gz. -verbose
+
+creating file 'archive.20120829.tar.gz.aa'
+creating file 'archive.20120829.tar.gz.ab'
+creating file 'archive.20120829.tar.gz.ac'
+...
+</code></pre>
+
+<p>We can merge above 2 commands as one with the pipe | as following:</p>
+
+<pre><code>tar -czvp -f -- archive.tar.gz foo bar |split -b 4000k -- archive.tar.gz archive.20120829.tar.gz. -verbose
+
+tar -tvf archive.tar # List all files in archive.tar verbosely.
+</code></pre>
+
+<p>How to exact the split tar files?</p>
+
+<pre><code>cat archive.20120829.tar.gz.a* &gt; archive.20120829.tar.gz
+
+cat archive.20120829.tar.gz.a* |tar -zxv
+</code></pre>
+
+<p><strong>Strange ISSUE</strong>:</p>
+
+<p>Under Mac OS, when you <code>tar cfv xx.tar xx</code>, you have some strange extra files start with ._xxx generated.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Delete files with find results]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/07/22/delete-files-with-find-results/"/>
+    <updated>2012-07-22T12:48:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/07/22/delete-files-with-find-results</id>
+    <content type="html"><![CDATA[<p>When you tried to delete all files with the name abc.txt under the folder /home/kelvin, try the following commands(one of them works):</p>
+
+<pre><code>find /home/kelvin -name abc.txt | xargs rm -rf
+find /home//kelvin -name abc.txt -exec rm -fv {} \;
+</code></pre>
+
+<p>Refer the doc: <a href="http://www.linuxsir.org/main/?q=node/137">http://www.linuxsir.org/main/?q=node/137</a></p>
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+</feed>

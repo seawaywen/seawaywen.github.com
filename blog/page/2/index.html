@@ -1,0 +1,755 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Kelvin Li</title>
+  <meta name="author" content="Kelvin Li">
+
+  
+  <meta name="description" content="Create a MySQL user
+mysql&gt; GRANT ALL PRIVILEGES ON remote.* TO remote@"%" IDENTIFIED BY "remotepwd";
+Change the /etc/mysql/my.cnf
+disable the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://seawaywen.github.com/blog/page/2/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Kelvin Li" type="application/atom+xml">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35338052-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <div id="logo">
+  	<div id="logoLeft">{</div>
+  	<div id="logoText"> I am </div>
+  	<div id="logoRight">}</div>
+  	<div class="clear"></div>
+  </div>
+  <h1><a href="/">Kelvin Li</a></h1>
+  
+  <div class="clear"></div>
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:seawaywen.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2012/05/03/enable-the-remote-connection-to-the-mysql-db-on-ubuntu-server/">Enable the Remote Connection to the MySQL DB on Ubuntu Server</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-03T17:51:00+08:00" pubdate data-updated="true">May 3<span>rd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ol>
+<li><p>Create a MySQL user<br/>
+<code>mysql&gt; GRANT ALL PRIVILEGES ON remote.* TO remote@"%" IDENTIFIED BY "remotepwd";</code></p></li>
+<li><p>Change the /etc/mysql/my.cnf<br/>
+<code>disable the bind-address = 127.0.0.1</code></p></li>
+<li><p>Restart the DB<br/>
+<code>sudo /etc/init.d/mysql restart</code></p></li>
+</ol>
+
+
+<p>Done.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2012/04/14/how-to-use-the-ssh-in-the-proxy-env/">How to Use the SSH in the Proxy Env</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-14T11:22:00+08:00" pubdate data-updated="true">Apr 14<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Sometimes you are working in the coperation dev environemnt and you found you stay behind the firewall, some ports are blocked, such as 22, and you have to access internet via corperation proxy server, but you do need to use ssh to connect some site outside of office. This post will provide you a solution to use SSH in the proxy environment.</p>
+
+<p><strong>This post imagin that you work with Mac env</strong></p>
+
+<h5>1. Install <a href="http://www.agroman.net/corkscrew/">corkscrew</a>:</h5>
+
+<pre><code>./configure -host=apple
+make
+make install
+</code></pre>
+
+<p>it will be installed in /usr/local/corkscrew by default.</p>
+
+<h5>2. Config proxy information In <em>System preference</em></h5>
+
+<h5>3.     Setup the SSH config info</h5>
+
+<pre><code>echo 'ProxyCommand /usr/local/bin/corkscrew your.proxy.server 8080 %h %p' &gt;&gt; ~/.ssh/config
+</code></pre>
+
+<h5>4. Test with</h5>
+
+<pre><code>ssh xx@xxx.com
+</code></pre>
+
+<p>Done.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2011/08/03/25-useful-ssh-commands/">25个必须记住的SSH命令</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-03T01:15:00+08:00" pubdate data-updated="true">Aug 3<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>OpenSSH是SSH连接工具的免费版本。telnet，rlogin和ftp用户可能还没意识到他们在互联网上传输的密码是未加密的，但SSH是加密的，OpenSSH加密所有通信（包括密码），有效消除了窃听，连接劫持和其它攻击。此外，OpenSSH提供了安全隧道功能和多种身份验证方法，支持SSH协议的所有版本。</p>
+
+<p>SSH是一个非常伟大的工具，如果你要在互联网上远程连接到服务器，那么SSH无疑是最佳的候选。下面是通过网络投票选出的25个最佳SSH命令，你必须牢记于心。</p>
+
+<ul>
+<li>复制SSH密钥到目标主机，开启无密码SSH登录</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh-copy-id user@host</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果还没有密钥，请使用ssh-keygen命令生成。</p>
+
+<ul>
+<li>从某主机的80端口开启到本地主机2001端口的隧道</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -N -L2001:localhost:80 somemachine</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在你可以直接在浏览器中输入http://localhost:2001访问这个网站。</p>
+
+<ul>
+<li>将你的麦克风输出到远程计算机的扬声器</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dd if=/dev/dsp | ssh -c arcfour -C username@host dd of=/dev/dsp</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样来自你麦克风端口的声音将在SSH目标计算机的扬声器端口输出，但遗憾的是，声音质量很差，你会听到很多嘶嘶声。</p>
+
+<ul>
+<li>比较远程和本地文件</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh user@host cat /path/to/remotefile | diff /path/to/localfile –</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在比较本地文件和远程文件是否有差异时这个命令很管用。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2011/08/03/25-useful-ssh-commands/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2011/08/02/how-to-fix-error-when-install-fabric/">How to Fix Error When Install Fabric</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-02T23:04:00+08:00" pubdate data-updated="true">Aug 2<span>nd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><pre><code>Installing collected packages: pycrypto, paramiko
+Running setup.py install for pycrypto
+warning: GMP library not found; Not building Crypto.PublicKey._fastmath.
+building 'Crypto.Hash.MD2' extension
+gcc-4.2 -fno-strict-aliasing -fno-common -dynamic -fwrapv -Wall -Wstrict-prototypes -DENABLE_DTRACE -arch i386 -arch ppc -arch x86_64 -pipe -std=c99 -O3 -fomit-frame-pointer -Isrc/ -I/System/Library/Frameworks/Python.framework/Versions/2.6/include/python2.6 -c src/MD2.c -o build/temp.macosx-10.6-universal-2.6/src/MD2.o
+/usr/libexec/gcc/powerpc-apple-darwin10/4.2.1/as: assembler (/usr/bin/../local/libexec/as/ppc/as or /usr/bin/../local/libexec/gcc/darwin/ppc/as) for architecture ppc not installed
+Installed assemblers are:
+/usr/bin/../libexec/as/x86_64/as for architecture x86_64
+/usr/bin/../libexec/as/i386/as for architecture i386
+/usr/bin/../libexec/as/arm/as for architecture arm
+src/MD2.c:134: fatal error: error writing to -: Broken pipe
+compilation terminated.
+lipo: can't open input file: /var/tmp//cc2qfvbZ.out (No such file or directory)
+error: command 'gcc-4.2' failed with exit status 1
+Complete output from command /usr/bin/python -c "import setuptools;__file__='/Users/Kelvin/build/pycrypto/setup.py';execfile(__file__)" install --single-version-externally-managed --record /tmp/pip-4O2Z1I-record/install-record.txt:
+running install
+.....
+
+lipo: can't open input file: /var/tmp//cc1IbrXz.out (No such file or directory)
+
+error: command 'gcc-4.2' failed with exit status 1
+</code></pre>
+
+<p>WHEN YOU GOT ABOVE ERROR WHEN YOU INSTALL THE FABRIC, REFER TO THE FOLLOWING COMMAND:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo ARCHFLAGS="-arch i386 -arch x86_64" pip install Fabric</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Reason</strong>: in Xcode 4, gcc removed the -arch ppc</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2011/07/31/how-to-fix-the-compile-error-when-use-narwhal-jsc-as-jake-engine-in-cappuccino/">How to Fix the Compile Error When Use Narwhal-jsc as Jake Engine in Cappuccino</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-31T11:09:00+08:00" pubdate data-updated="true">Jul 31<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>When you use the narwhal-jsc as your jake Engine, compile with the following errors:</p>
+
+<pre><code>Making all in examples
+Make[3]: *** No rule to make target `../src/libedit.la', needed by `tc1'. Stop.
+make[2]: *** [all-recursive] Error 1
+make[1]: *** [all] Error 2
+make: *** [deps/libedit-20100424-3.0/src/.libs/libedit.dylib] Error 2
+</code></pre>
+
+<h3>Solution to fix:</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.tusk install narwhal-jsc
+</span><span class='line'>2.go to narwhal/packages/narwhal-jsc
+</span><span class='line'>3.go to deps/libedit20100424-3.0(may be different from this version number)
+</span><span class='line'>4.sudo autoreconf --force --install
+</span><span class='line'>5. ./configure
+</span><span class='line'>6. sudo make (with compile error, don't care about it)
+</span><span class='line'>7. go back to narwhal/packages/narwhal-jsc
+</span><span class='line'>8. make webkit (compile successfully)
+</span><span class='line'>9. ln -s narwhal/packages/narwhal-jsc/bin/narwhial-jsc narwhal/bin
+</span><span class='line'>10. export NARWHAL_ENGINE=jsc (add to ~/.profile)
+</span><span class='line'>11. source ~/.profile
+</span><span class='line'>12. open a new terminal and run jake (it works)</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2011/07/25/mysqldb-missing-image-error-from-pycharm-ide-when-django-sync/">MySQLdb Missing Image Error From PyCharm IDE When Django Sync</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-25T11:48:00+08:00" pubdate data-updated="true">Jul 25<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Solution:</h3>
+
+<p>You can set the environment used by launchd (and, by extension, anything started from Spotlight) with launchctl setenv.</p>
+
+<p>For example to set the path:</p>
+
+<pre><code>launchctl setenv PATH /opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+</code></pre>
+
+<p>Or if you want to set up your path in .bashrc or similar, then have it mirrored in launchd:</p>
+
+<pre><code>PATH=/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+
+launchctl setenv PATH $PATH
+</code></pre>
+
+<p>There&#8217;s no need to reboot (though you will need to restart an app if you want it to pick up the changed environment.)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2011/04/22/common-useful-commands-collection/">Common Useful Commands Collection</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-22T14:49:00+08:00" pubdate data-updated="true">Apr 22<span>nd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ul>
+<li>Copy remote single file to local</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>scp username@host:/Users/xx/copyFile ./localDir</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Copy remote directory to local</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>scp -R username@host:/Users/xx/copyFile ./localDir</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Delete all .svn folders recursively in current directory (Include the files in folders)</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>find ./ -name ".svn" -type d -exec rm -rf {} \;</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Delete all dep file</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>find . -name *.dep -type f -exec rm -f {} \;</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Restart apache in Mac</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apachectl restart</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2011/04/15/how-to-setup-the-dyndns-on-the-timecapsule/">How to Setup the Dyndns on the TimeCapsule</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-15T16:39:00+08:00" pubdate data-updated="true">Apr 15<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve bought the Dynamic DNS service from <a href="http://www.dyndns.com">DynDNS</a>, and I&#8217;d like the host my own Mac mini with this service, so that I can access my server out of home.</p>
+
+<p>I hsot my home network with TimeCapsule which is Apple&#8217;s router product.</p>
+
+<p>I refer to the following link to setup DynDNS server succesfully:<br/>
+<a href="http://www.dyndns.com/support/kb/apple_airport_with_custom_dns.html">http://www.dyndns.com/support/kb/apple_airport_with_custom_dns.html</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2011/02/16/show-hidden-files-in-finder/">Show Hidden Files in Finder</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-16T12:27:00+08:00" pubdate data-updated="true">Feb 16<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Enable showing hidden files in finder</h3>
+
+<pre><code>defaults write com.apple.finder AppleShowAllFiles - bool true
+
+KillAll Finder
+</code></pre>
+
+<h3>disable showing hidden files in finder</h3>
+
+<pre><code>defaults write com.apple.finder AppleShowAllFiles - bool false
+
+KillAll Finder
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/09/16/python-env-issue-on-mountain-lion/">Python env issue on Mac (Mountain Lion)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/03/how-to-setup-a-https-site/">How to setup a HTTPS site</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/08/29/tips-for-git-repository-migration-to-other-server/">Tips for git repository migration to other server</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/08/29/how-to-push-to-multiple-git-repositories-at-one-time/">How to push to multiple git repositories at one time</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/08/23/tar-command-usage/">Tar command usage</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/seawaywen">@seawaywen</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'seawaywen',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Kelvin Li @memodir
+  <!--span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span-->
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

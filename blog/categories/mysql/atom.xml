@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: mysql | Kelvin Li]]></title>
+  <link href="http://seawaywen.github.com/blog/categories/mysql/atom.xml" rel="self"/>
+  <link href="http://seawaywen.github.com/"/>
+  <updated>2012-10-08T18:37:54+08:00</updated>
+  <id>http://seawaywen.github.com/</id>
+  <author>
+    <name><![CDATA[Kelvin Li]]></name>
+    <email><![CDATA[kelvin@memodir.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Enable the remote connection to the MySQL DB on Ubuntu Server]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/05/03/enable-the-remote-connection-to-the-mysql-db-on-ubuntu-server/"/>
+    <updated>2012-05-03T17:51:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/05/03/enable-the-remote-connection-to-the-mysql-db-on-ubuntu-server</id>
+    <content type="html"><![CDATA[<ol>
+<li><p>Create a MySQL user<br/>
+<code>mysql&gt; GRANT ALL PRIVILEGES ON remote.* TO remote@"%" IDENTIFIED BY "remotepwd";</code></p></li>
+<li><p>Change the /etc/mysql/my.cnf<br/>
+<code>disable the bind-address = 127.0.0.1</code></p></li>
+<li><p>Restart the DB<br/>
+<code>sudo /etc/init.d/mysql restart</code></p></li>
+</ol>
+
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+</feed>

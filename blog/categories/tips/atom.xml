@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: tips | Kelvin Li]]></title>
+  <link href="http://seawaywen.github.com/blog/categories/tips/atom.xml" rel="self"/>
+  <link href="http://seawaywen.github.com/"/>
+  <updated>2012-10-08T18:37:54+08:00</updated>
+  <id>http://seawaywen.github.com/</id>
+  <author>
+    <name><![CDATA[Kelvin Li]]></name>
+    <email><![CDATA[kelvin@memodir.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Tips for git repository migration to other server]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/08/29/tips-for-git-repository-migration-to-other-server/"/>
+    <updated>2012-08-29T14:40:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/08/29/tips-for-git-repository-migration-to-other-server</id>
+    <content type="html"><![CDATA[<p>Recently I am going to use the private git repository that hosting on the <a href="http://www.webfaction.com">webfaction</a> from my own server. During the migration I met some issues, here are some tips should be noticed.</p>
+
+<p>When create the new repository, don't forget:</p>
+
+<pre><code>git config http.receivepack true
+</code></pre>
+
+<p>If you are using the SSL on the GIT server without certificate signed by CA, you <strong>SHOULD</strong> do these in your local box:</p>
+
+<pre><code>export GIT_SSL_NO_VERIFY=true
+git clone https://demo@your_git_site_url/project.git
+</code></pre>
+
+<p>Then, disable SSL certificate verification for the repository to enable push and pull operations:</p>
+
+<pre><code>switch to the repository directory
+git config http.sslVerify false
+</code></pre>
+
+<p>And of course when you get error:</p>
+
+<p><code>SSL certificate problem, verify that the CA cert is OK.</code> <code>Details: error:14090086:SSL</code>   <br/>
+<code>routines:SSL3_GET_SERVER_CERTIFICATE:certificate verify failed while accessing</code></p>
+
+<p>You can config gloablly:</p>
+
+<pre><code>git config --global http.sslVerify false
+</code></pre>
+
+<!-- more -->
+
+
+<p>When you clone the repository from the server, and you got the following error message:</p>
+
+<p><code>./objects/pack/._pack-de7d2e641423ddac38ff369dae6afad9f02d4397.idx is too small</code></p>
+
+<p><code>error: index file /home/joe/site/.git/objects/pack/._pack-de7d2e641423ddac38ff369dae6afad9f02d4397.idx is too small</code></p>
+
+<p>What you should do is run the following commands in your local repository:</p>
+
+<pre><code>git config repack.usedeltabaseoffset false
+git repack -a -d
+</code></pre>
+
+<p>If you have Error:</p>
+
+<p><code>RPC failed; result=22, HTTP code = 411</code></p>
+
+<p>do as following:</p>
+
+<pre><code>git config http.postBuffer 524288000 #Permit pushes up to 500 megabytes
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tar command usage]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/08/23/tar-command-usage/"/>
+    <updated>2012-08-23T22:02:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/08/23/tar-command-usage</id>
+    <content type="html"><![CDATA[<p>Create the tar file</p>
+
+<pre><code>tar -czvp -f archive.tar.gz foo bar # Create archive.tar.gz from files foo and bar with the preserved permission,
+tar -cjvp -f archive.tar.bz2 foo bar 
+</code></pre>
+
+<p>How to split the file:</p>
+
+<pre><code>split -b 4000k archive.tar.gz archive.20120829.tar.gz. -verbose
+
+creating file 'archive.20120829.tar.gz.aa'
+creating file 'archive.20120829.tar.gz.ab'
+creating file 'archive.20120829.tar.gz.ac'
+...
+</code></pre>
+
+<p>We can merge above 2 commands as one with the pipe | as following:</p>
+
+<pre><code>tar -czvp -f -- archive.tar.gz foo bar |split -b 4000k -- archive.tar.gz archive.20120829.tar.gz. -verbose
+
+tar -tvf archive.tar # List all files in archive.tar verbosely.
+</code></pre>
+
+<p>How to exact the split tar files?</p>
+
+<pre><code>cat archive.20120829.tar.gz.a* &gt; archive.20120829.tar.gz
+
+cat archive.20120829.tar.gz.a* |tar -zxv
+</code></pre>
+
+<p><strong>Strange ISSUE</strong>:</p>
+
+<p>Under Mac OS, when you <code>tar cfv xx.tar xx</code>, you have some strange extra files start with ._xxx generated.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Delete files with find results]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/07/22/delete-files-with-find-results/"/>
+    <updated>2012-07-22T12:48:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/07/22/delete-files-with-find-results</id>
+    <content type="html"><![CDATA[<p>When you tried to delete all files with the name abc.txt under the folder /home/kelvin, try the following commands(one of them works):</p>
+
+<pre><code>find /home/kelvin -name abc.txt | xargs rm -rf
+find /home//kelvin -name abc.txt -exec rm -fv {} \;
+</code></pre>
+
+<p>Refer the doc: <a href="http://www.linuxsir.org/main/?q=node/137">http://www.linuxsir.org/main/?q=node/137</a></p>
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Start service automatically on linux server]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/05/17/how-to-start-service-automatically-on-linux-server/"/>
+    <updated>2012-05-17T14:52:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/05/17/how-to-start-service-automatically-on-linux-server</id>
+    <content type="html"><![CDATA[<h3>Add the service as automatically startup</h3>
+
+<ol>
+<li>copy the startup script to <code>/etc/init.d</code></li>
+<li><code>sudo chmod 755 /etc/init.d/your_script</code></li>
+<li>run the following commonds<br/>
+<code>
+cd /etc/init.d
+sudo upate-rc.d your_script defaults xx(xx is the start sequence number)
+</code></li>
+</ol>
+
+
+<h3>Remove the startup service</h3>
+
+<p><code>
+cd /etc/init.d
+sudo update-rc.d -f your_script remove
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[how to use the SSH in the proxy env]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/04/14/how-to-use-the-ssh-in-the-proxy-env/"/>
+    <updated>2012-04-14T11:22:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/04/14/how-to-use-the-ssh-in-the-proxy-env</id>
+    <content type="html"><![CDATA[<p>Sometimes you are working in the coperation dev environemnt and you found you stay behind the firewall, some ports are blocked, such as 22, and you have to access internet via corperation proxy server, but you do need to use ssh to connect some site outside of office. This post will provide you a solution to use SSH in the proxy environment.</p>
+
+<p><strong>This post imagin that you work with Mac env</strong></p>
+
+<h5>1. Install <a href="http://www.agroman.net/corkscrew/">corkscrew</a>:</h5>
+
+<pre><code>./configure -host=apple
+make
+make install
+</code></pre>
+
+<p>it will be installed in /usr/local/corkscrew by default.</p>
+
+<h5>2. Config proxy information In <em>System preference</em></h5>
+
+<h5>3.     Setup the SSH config info</h5>
+
+<pre><code>echo 'ProxyCommand /usr/local/bin/corkscrew your.proxy.server 8080 %h %p' &gt;&gt; ~/.ssh/config
+</code></pre>
+
+<h5>4. Test with</h5>
+
+<pre><code>ssh xx@xxx.com
+</code></pre>
+
+<p>Done.</p>
+]]></content>
+  </entry>
+  
+</feed>
