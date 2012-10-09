@@ -9,7 +9,7 @@
   <meta name="author" content="Kelvin Li">
 
   
-  <meta name="description" content="Today I have python issue after upgrading to the Moutain Lion. I want to create a new virtual python evironment with virtualenv, but I got this error &hellip;">
+  <meta name="description" content="Recently I am using the Solr as the full text search enginee in the project. The project is django based, an amazing framework HayStack was imported &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +83,69 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2012/10/09/steps-to-integrate-solr-into-tomcat/">Steps to Integrate Solr Into Tomcat</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-09T11:27:00+08:00" pubdate data-updated="true">Oct 9<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recently I am using the Solr as the full text search enginee in the project. The project is django based, an amazing framework <a href="http://haystacksearch.org/">HayStack</a> was imported as the django search modular. It provides some useful APIs and Commonds that are quite handy.</p>
+
+<p>For Solr, by default it can be ran <code>java -jar start.jar</code> in Solr dir, but in need of the project, we need to host the Solr by Tomcat.
+I record some important steps here:</p>
+
+<h2>The example Solr version is <strong>3.6</strong></h2>
+
+<h2>Install Solr instance(s)</h2>
+
+<ol>
+<li><p>Extact the apache-solr-3.6.0.zip.</p></li>
+<li><p>Copy the <code>apache-solr-3.6.0/example/solr</code> directory to the installation directory <code>/Users/Kelvin/Services/SolrSearchEngines/solr1</code>.</p></li>
+<li><p>Copy dist/apache-solr-*.war into <code>/Users/Kelvin/Services/SolrSearchEngines/solr</code> as solr.war.</p></li>
+<li><p>Open <code>/Users/Kelvin/Services/SolrSearchEngines/conf/solrconfig.xml</code>  <br/>
+Specify the full path of dataDir for the index data:</p></li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;dataDir&gt;${solr.data.dir:/Users/Kelvin/Services/SolrSearchEngines/solr1/data}&lt;/dataDir&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/09/steps-to-integrate-solr-into-tomcat/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -631,67 +694,6 @@ find /home//kelvin -name abc.txt -exec rm -fv {} \;
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/blog/2012/05/17/how-to-start-service-automatically-on-linux-server/">Start Service Automatically on Linux Server</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-05-17T14:52:00+08:00" pubdate data-updated="true">May 17<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>Add the service as automatically startup</h3>
-
-<ol>
-<li>copy the startup script to <code>/etc/init.d</code></li>
-<li><code>sudo chmod 755 /etc/init.d/your_script</code></li>
-<li>run the following commonds</li>
-</ol>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/init.d
-</span><span class='line'>sudo upate-rc.d your_script defaults xx(xx is the start sequence number)</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Remove the startup service</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/init.d
-</span><span class='line'>sudo update-rc.d -f your_script remove</span></code></pre></td></tr></table></div></figure>
-
-
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -707,6 +709,10 @@ find /home//kelvin -name abc.txt -exec rm -fv {} \;
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/10/09/steps-to-integrate-solr-into-tomcat/">Steps to integrate Solr into Tomcat</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/09/16/python-env-issue-on-mountain-lion/">Python env issue on Mac (Mountain Lion)</a>
       </li>
     
@@ -720,10 +726,6 @@ find /home//kelvin -name abc.txt -exec rm -fv {} \;
     
       <li class="post">
         <a href="/blog/2012/08/29/how-to-push-to-multiple-git-repositories-at-one-time/">How to push to multiple git repositories at one time</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/08/23/tar-command-usage/">Tar command usage</a>
       </li>
     
   </ul>

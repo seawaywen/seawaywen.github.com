@@ -5,14 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Start service automatically on linux server - Kelvin Li</title>
+  <title>Steps to integrate Solr into Tomcat - Kelvin Li</title>
   <meta name="author" content="Kelvin Li">
 
   
-  <meta name="description" content="Add the service as automatically startup copy the startup script to /etc/init.d
-sudo chmod 755 /etc/init.d/your_script
-run the following commonds 1
-2 &hellip;">
+  <meta name="description" content="Recently I am using the Solr as the full text search enginee in the project. The project is django based, an amazing framework HayStack was imported &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +18,7 @@ run the following commonds 1
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://seawaywen.github.com/blog/2012/05/17/how-to-start-service-automatically-on-linux-server/">
+  <link rel="canonical" href="http://seawaywen.github.com/blog/2012/10/09/steps-to-integrate-solr-into-tomcat/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -90,7 +87,7 @@ run the following commonds 1
   <header>
     
       
-        <h1 class="entry-title">Start Service Automatically on Linux Server</h1>
+        <h1 class="entry-title">Steps to Integrate Solr Into Tomcat</h1>
       
     
     
@@ -107,37 +104,95 @@ run the following commonds 1
   
 
 
-<time datetime="2012-05-17T14:52:00+08:00" pubdate data-updated="true">May 17<span>th</span>, 2012</time>
+<time datetime="2012-10-09T11:27:00+08:00" pubdate data-updated="true">Oct 9<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h3>Add the service as automatically startup</h3>
+<div class="entry-content"><p>Recently I am using the Solr as the full text search enginee in the project. The project is django based, an amazing framework <a href="http://haystacksearch.org/">HayStack</a> was imported as the django search modular. It provides some useful APIs and Commonds that are quite handy.</p>
+
+<p>For Solr, by default it can be ran <code>java -jar start.jar</code> in Solr dir, but in need of the project, we need to host the Solr by Tomcat.
+I record some important steps here:</p>
+
+<h2>The example Solr version is <strong>3.6</strong></h2>
+
+<h2>Install Solr instance(s)</h2>
 
 <ol>
-<li>copy the startup script to <code>/etc/init.d</code></li>
-<li><code>sudo chmod 755 /etc/init.d/your_script</code></li>
-<li>run the following commonds</li>
+<li><p>Extact the apache-solr-3.6.0.zip.</p></li>
+<li><p>Copy the <code>apache-solr-3.6.0/example/solr</code> directory to the installation directory <code>/Users/Kelvin/Services/SolrSearchEngines/solr1</code>.</p></li>
+<li><p>Copy dist/apache-solr-*.war into <code>/Users/Kelvin/Services/SolrSearchEngines/solr</code> as solr.war.</p></li>
+<li><p>Open <code>/Users/Kelvin/Services/SolrSearchEngines/conf/solrconfig.xml</code>  <br/>
+Specify the full path of dataDir for the index data:</p></li>
 </ol>
 
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/init.d
-</span><span class='line'>sudo upate-rc.d your_script defaults xx(xx is the start sequence number)</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;dataDir&gt;${solr.data.dir:/Users/Kelvin/Services/SolrSearchEngines/solr1/data}&lt;/dataDir&gt;</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>Remove the startup service</h3>
+<!-- more -->
+
+
+<h2>Generate Solr schema file with Haystack module in Django</h2>
+
+<ol>
+<li>Install the hayStack in your Django application.</li>
+<li>run the command to generate the schema file:</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>python manage.py build_solr_schema &gt; schema.xml</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Replace the existed schema in the Solr&#8217;s example</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/init.d
-</span><span class='line'>sudo update-rc.d -f your_script remove</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mv /Users/Kelvin/Services/SolrSearchEngines/solr1/conf/schema.xml /Users/Kelvin/Services/SolrSearchEngines/solr1/conf/schema.xml.origin    
+</span><span class='line'>
+</span><span class='line'>cp schema.xml /Users/Kelvin/Services/SolrSearchEngines/solr1/conf
+</span><span class='line'>
+</span><span class='line'>cd /Users/Kelvin/Services/SolrSearchEngines/solr1/conf
+</span><span class='line'>
+</span><span class='line'>cp stopwords.txt stopwords_en.txt</span></code></pre></td></tr></table></div></figure>
 
 
+<h2>Create solr1.xml file</h2>
 
+<p>Go in <code>tomcat-installer-dir/conf/Catalina/localhost</code> create a xml file call solr1.xml with the content:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+</span><span class='line'>&lt;Context docbase="/Users/Kelvin/Services/solr.war" debug="0" crosscontext="true"&gt;
+</span><span class='line'>  &lt;Environment name="solr/home" type="java.lang.String" value="/Users/Kelvin/Services/SolrSearchE\
+</span><span class='line'>ngines/solr1" override="true" /&gt;
+</span><span class='line'>&lt;/Context&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Deploy the solr admin site</h2>
+
+<p>Put the <em>solr.war</em> to <code>tomcat-installer-dir/webapp</code>, once the tomcat startup, it will extract to a folder call <code>solr</code>, rename it to <code>solr1</code></p>
+
+<h2>Have multiple instances and have a try</h2>
+
+<p>Repeat the above steps with different installation directories to run multiple instances of Solr side-by-side.</p>
+
+<p>If Tomcat is not already running, start it with service tomcat6 start or $CATALINA_HOME/bin/startup.sh run.</p>
+
+<p>The Solr admin should be available at http://localhost:8080/solr1.</p>
 </div>
 
 
@@ -160,12 +215,12 @@ run the following commonds 1
   
 
 
-<time datetime="2012-05-17T14:52:00+08:00" pubdate data-updated="true">May 17<span>th</span>, 2012</time>
+<time datetime="2012-10-09T11:27:00+08:00" pubdate data-updated="true">Oct 9<span>th</span>, 2012</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/tips/'>tips</a>
+    <a class='category' href='/blog/categories/solr/'>solr</a>
   
 </span>
 
@@ -181,10 +236,8 @@ run the following commonds 1
     
     <p class="meta">
       
-        <a class="basic-alignment left articlenav" href="/blog/2012/05/03/enable-the-remote-connection-to-the-mysql-db-on-ubuntu-server/" title="Previous Post: Enable the remote connection to the MySQL DB on Ubuntu Server">&laquo; Enable the remote connection to the MySQL DB on Ubuntu Server</a>
+        <a class="basic-alignment left articlenav" href="/blog/2012/09/16/python-env-issue-on-mountain-lion/" title="Previous Post: Python env issue on Mac (Mountain Lion)">&laquo; Python env issue on Mac (Mountain Lion)</a>
       
-      
-        <a class="basic-alignment right articlenav" href="/blog/2012/05/18/create-compile-and-use-static-library-with-xcode-on-mac/" title="Next Post: 制作，编译和使用静态库">制作，编译和使用静态库 &raquo;</a>
       
     </p>
   </footer>

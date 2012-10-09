@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: solr | Kelvin Li]]></title>
+  <link href="http://seawaywen.github.com/blog/categories/solr/atom.xml" rel="self"/>
+  <link href="http://seawaywen.github.com/"/>
+  <updated>2012-10-09T13:28:05+08:00</updated>
+  <id>http://seawaywen.github.com/</id>
+  <author>
+    <name><![CDATA[Kelvin Li]]></name>
+    <email><![CDATA[kelvin@memodir.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Steps to integrate Solr into Tomcat]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/10/09/steps-to-integrate-solr-into-tomcat/"/>
+    <updated>2012-10-09T11:27:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/10/09/steps-to-integrate-solr-into-tomcat</id>
+    <content type="html"><![CDATA[<p>Recently I am using the Solr as the full text search enginee in the project. The project is django based, an amazing framework <a href="http://haystacksearch.org/">HayStack</a> was imported as the django search modular. It provides some useful APIs and Commonds that are quite handy.</p>
+
+<p>For Solr, by default it can be ran <code>java -jar start.jar</code> in Solr dir, but in need of the project, we need to host the Solr by Tomcat.
+I record some important steps here:</p>
+
+<h2>The example Solr version is <strong>3.6</strong></h2>
+
+<h2>Install Solr instance(s)</h2>
+
+<ol>
+<li><p>Extact the apache-solr-3.6.0.zip.</p></li>
+<li><p>Copy the <code>apache-solr-3.6.0/example/solr</code> directory to the installation directory <code>/Users/Kelvin/Services/SolrSearchEngines/solr1</code>.</p></li>
+<li><p>Copy dist/apache-solr-*.war into <code>/Users/Kelvin/Services/SolrSearchEngines/solr</code> as solr.war.</p></li>
+<li><p>Open <code>/Users/Kelvin/Services/SolrSearchEngines/conf/solrconfig.xml</code>  <br/>
+Specify the full path of dataDir for the index data:
+<code>
+&lt;dataDir&gt;${solr.data.dir:/Users/Kelvin/Services/SolrSearchEngines/solr1/data}&lt;/dataDir&gt;
+</code></p></li>
+</ol>
+
+
+<!-- more -->
+
+
+<h2>Generate Solr schema file with Haystack module in Django</h2>
+
+<ol>
+<li>Install the hayStack in your Django application.</li>
+<li>run the command to generate the schema file:</li>
+</ol>
+
+
+<p><code>
+python manage.py build_solr_schema &gt; schema.xml
+</code></p>
+
+<p>Replace the existed schema in the Solr's example</p>
+
+<p>```
+mv /Users/Kelvin/Services/SolrSearchEngines/solr1/conf/schema.xml /Users/Kelvin/Services/SolrSearchEngines/solr1/conf/schema.xml.origin</p>
+
+<p>cp schema.xml /Users/Kelvin/Services/SolrSearchEngines/solr1/conf</p>
+
+<p>cd /Users/Kelvin/Services/SolrSearchEngines/solr1/conf</p>
+
+<p>cp stopwords.txt stopwords_en.txt
+```</p>
+
+<h2>Create solr1.xml file</h2>
+
+<p>Go in <code>tomcat-installer-dir/conf/Catalina/localhost</code> create a xml file call solr1.xml with the content:</p>
+
+<p><code>
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;Context docbase="/Users/Kelvin/Services/solr.war" debug="0" crosscontext="true"&gt;
+  &lt;Environment name="solr/home" type="java.lang.String" value="/Users/Kelvin/Services/SolrSearchE\
+ngines/solr1" override="true" /&gt;
+&lt;/Context&gt;
+</code></p>
+
+<h2>Deploy the solr admin site</h2>
+
+<p>Put the <em>solr.war</em> to <code>tomcat-installer-dir/webapp</code>, once the tomcat startup, it will extract to a folder call <code>solr</code>, rename it to <code>solr1</code></p>
+
+<h2>Have multiple instances and have a try</h2>
+
+<p>Repeat the above steps with different installation directories to run multiple instances of Solr side-by-side.</p>
+
+<p>If Tomcat is not already running, start it with service tomcat6 start or $CATALINA_HOME/bin/startup.sh run.</p>
+
+<p>The Solr admin should be available at http://localhost:8080/solr1.</p>
+]]></content>
+  </entry>
+  
+</feed>
