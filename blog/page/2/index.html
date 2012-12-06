@@ -9,10 +9,7 @@
   <meta name="author" content="Kelvin Li">
 
   
-  <meta name="description" content="Add the service as automatically startup copy the startup script to /etc/init.d
-sudo chmod 755 /etc/init.d/your_script
-run the following commonds 1
-2 &hellip;">
+  <meta name="description" content="很多情况下，我们从网上得到的是一个纯C的代码包，他们这些库，往往是各种平台通用，代码包svn checkout出来后，里面有makefile, vcproject file 等。 但往往我们先README看过之后，通过 ./configure make make install &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,6 +83,73 @@ run the following commonds 1
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2012/05/18/create-compile-and-use-static-library-with-xcode-on-mac/">制作，编译和使用静态库</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-18T12:47:00+08:00" pubdate data-updated="true">May 18<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>很多情况下，我们从网上得到的是一个纯C的代码包，他们这些库，往往是各种平台通用，代码包<code>svn checkout</code>出来后，里面有<code>makefile</code>, <code>vcproject file</code> 等。</p>
+
+<p>但往往我们先README看过之后，通过</p>
+
+<pre><code>./configure make make install  
+</code></pre>
+
+<p>来实现编译生成了一个库。（注意一些基本语法 ./confiure后如果带 &#8211;<code>prefix=/path/to/your/custom/dir</code> 表明自定义安装路径。）</p>
+
+<p>那么在这样的情况下，我们第一个首先会遇到的问题，就是这个库格式不兼容。</p>
+
+<p>我们添加了这个库到project后编译时，显示</p>
+
+<pre><code>this file format doesn't support (i386)。  
+</code></pre>
+
+<p>这个情况，是由于大部分snow leopard是INTEL DUO CPU，双核x86_64的，一般很多库，不加特别标注，都以为你开发了为MAC电脑开发程序，所以库都默认为x86_64位的静态库。如果你好奇，可以new一个MAC开发程序的project，试着看看那个库能不能正常编译，没有warning就知道了。</p>
+
+<p>当然，还有一个命令行来检测你编译的库，可以使用在什么平台架构下。
+方法如下：</p>
+
+<pre><code>lipo -info /path/to/your/library.a
+</code></pre>
+
+<p>即可看到此库位i386, x86_64, arm等等。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/05/18/create-compile-and-use-static-library-with-xcode-on-mac/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -668,57 +732,9 @@ launchctl setenv PATH $PATH
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/blog/2011/02/16/show-hidden-files-in-finder/">Show Hidden Files in Finder</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-02-16T12:27:00+08:00" pubdate data-updated="true">Feb 16<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>Enable showing hidden files in finder</h3>
-
-<pre><code>defaults write com.apple.finder AppleShowAllFiles - bool true
-
-KillAll Finder
-</code></pre>
-
-<h3>disable showing hidden files in finder</h3>
-
-<pre><code>defaults write com.apple.finder AppleShowAllFiles - bool false
-
-KillAll Finder
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/3/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -731,6 +747,10 @@ KillAll Finder
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/12/06/qt-workshop-topics/">qt_workshop_topics</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/10/09/steps-to-integrate-solr-into-tomcat/">Steps to integrate Solr into Tomcat</a>
@@ -746,10 +766,6 @@ KillAll Finder
     
       <li class="post">
         <a href="/blog/2012/08/29/tips-for-git-repository-migration-to-other-server/">Tips for git repository migration to other server</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/08/29/how-to-push-to-multiple-git-repositories-at-one-time/">How to push to multiple git repositories at one time</a>
       </li>
     
   </ul>

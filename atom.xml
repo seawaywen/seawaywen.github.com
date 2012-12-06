@@ -4,7 +4,7 @@
   <title><![CDATA[Kelvin Li]]></title>
   <link href="http://seawaywen.github.com/atom.xml" rel="self"/>
   <link href="http://seawaywen.github.com/"/>
-  <updated>2012-10-09T13:28:05+08:00</updated>
+  <updated>2012-12-06T12:38:47+08:00</updated>
   <id>http://seawaywen.github.com/</id>
   <author>
     <name><![CDATA[Kelvin Li]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[qt_workshop_topics]]></title>
+    <link href="http://seawaywen.github.com/blog/2012/12/06/qt-workshop-topics/"/>
+    <updated>2012-12-06T12:34:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2012/12/06/qt-workshop-topics</id>
+    <content type="html"><![CDATA[<p>Here are the workshop topics we are going to have recently in QT Beijing</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Steps to integrate Solr into Tomcat]]></title>
@@ -1042,27 +1051,6 @@ launchctl setenv PATH $PATH
 
 <p>I refer to the following link to setup DynDNS server succesfully:<br/>
 <a href="http://www.dyndns.com/support/kb/apple_airport_with_custom_dns.html">http://www.dyndns.com/support/kb/apple_airport_with_custom_dns.html</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[show hidden files in Finder]]></title>
-    <link href="http://seawaywen.github.com/blog/2011/02/16/show-hidden-files-in-finder/"/>
-    <updated>2011-02-16T12:27:00+08:00</updated>
-    <id>http://seawaywen.github.com/blog/2011/02/16/show-hidden-files-in-finder</id>
-    <content type="html"><![CDATA[<h3>Enable showing hidden files in finder</h3>
-
-<pre><code>defaults write com.apple.finder AppleShowAllFiles - bool true
-
-KillAll Finder
-</code></pre>
-
-<h3>disable showing hidden files in finder</h3>
-
-<pre><code>defaults write com.apple.finder AppleShowAllFiles - bool false
-
-KillAll Finder
-</code></pre>
 ]]></content>
   </entry>
   
