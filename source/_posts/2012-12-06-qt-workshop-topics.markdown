@@ -28,15 +28,17 @@ Here are the workshop topics we are going to have recently in QT Beijing. This g
 <br>
 
   
-### 2 IST new features 
-> Breif description
+### 2 Some new features of IST 
+>IST (Integrated Support Tool) is an internal Web application of Nagra to trace PR/CR, store project release data and documents, and etc. In 2012 some new features have been deployed in IST. The features are mainly requested by Headend Department, and some other requests as well. 
 
 #####Agenda:
-`1. PDP` <br>
-`2. Data defect analysis` <br>
-`3. Solution Release` <br>
-`4. FOSS Report` <br>
-`5. PlatForm version management` <br>
+`1. Parameter Delivery Process` <br>
+`2. Data Defect Analysis ` <br>
+`3. Platform Version Management` <br>
+`4. Module Release and Software Component Version Delta` <br>
+`5. Refer Doc in Perforce` <br>
+`6. Other features` <br>
+
 
 ####Reference docs
 
@@ -45,12 +47,15 @@ Here are the workshop topics we are going to have recently in QT Beijing. This g
 <br>
 
 ### 3 VSTO AddIn
-> Breif description
+> VSTO stands for Visual Studio Tools for Office, main idea is to take advantage of DotNet Framework and could be 
+Replacement of the VBA solutions
 
 #####Agenda:
-`1. agend1` <br>
-`2. agend2` <br>
-`3. …` <br>
+`1. Background: Why use this solution` <br>
+`2. Direction: My ideas of how to use it`<br>
+`3. Demo: What I have done with it`<br>
+`4. Suggestion: Collect ideas`<br>
+
 
 ####Reference docs
 
@@ -68,17 +73,20 @@ Here are the workshop topics we are going to have recently in QT Beijing. This g
 
 ####Reference docs
 
+<!-- more -->
 
 ***
 <br>
 
-### 5 NIO & RMI devleopment
-> Breif description
+### 5 NIO and RMI development
+> NIO (New I/O) is a set of Java programming language API that offer features for multiplexed and non-blocking I/O operations. It was introduced with the J2SE 1.4 release of Java.   
+>  
+> RMI (Remote Method Invocation) is a Java API that performs the object-oriented equivalent of remote procedure calls (RPC). It enables a JVM object to invoke the method of another JVM object.
 
 #####Agenda:
-`1. agend1` <br>
-`2. agend2` <br>
-`3. …` <br>
+`1. NIO` <br>
+`2. RMI` <br>
+
 
 ####Reference docs
 
@@ -100,7 +108,8 @@ Here are the workshop topics we are going to have recently in QT Beijing. This g
 <br>
 
 ### 7 P4CM 
-> Breif description
+>  A wrapper of Perl P4API, that provides functionalities of dependence management
+
 
 #####Agenda:
 `1. Project architect introduction` <br>
@@ -127,12 +136,13 @@ Here are the workshop topics we are going to have recently in QT Beijing. This g
 <br>
 
 ### 9 ATRR
-> Breif description
+>  ATRR stands for Automated Test Run Report, a python-django based web application centralise test run result and generate reports
 
 #####Agenda:
 `1. Buildout` <br>
 `2. Generic template` <br>
 `3. Selenium test` <br>
+`4. My understands of django framework` <br>
 
 ####Reference docs
 
@@ -194,13 +204,12 @@ Here are the workshop topics we are going to have recently in QT Beijing. This g
 ***
 <br>
 
-### 14 POI for Exel
-> Breif description
+### 14 POI introduction
+> Apache POI is an open source Java API to read and write the Microsoft documents such as Excel, Word and PowerPoint. In IST development we use HSSF/XSSF components to edit Excel reports.
 
 #####Agenda:
-`1. agend1` <br>
-`2. agend2` <br>
-`3. …` <br>
+`1. POI overview` <br>
+`2. POI to write Excel` <br>
 
 ####Reference docs
 
@@ -208,13 +217,15 @@ Here are the workshop topics we are going to have recently in QT Beijing. This g
 ***
 <br>
 
-### 15 Tika for Word
-> Breif description
+### 15 Tika introduction
+> Apache Tika is a toolkit for text extracting. It detects and extracts metadata and structured text content from various documents using existing parser libraries. In IST development we use Tika to extract Word contents.
+
+
 
 #####Agenda:
-`1. agend1` <br>
-`2. agend2` <br>
-`3. …` <br>
+`1. Tika overview` <br>
+`2. Tika to extract Word` <br>
+
 
 ####Reference docs
 
@@ -263,6 +274,10 @@ Here are the workshop topics we are going to have recently in QT Beijing. This g
 `3. MibBrowser` <br>
 
 ####Reference docs
+
+
+***
+<br>
 
 
 ### 19 GIT introduction
