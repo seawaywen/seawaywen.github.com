@@ -90,7 +90,7 @@ Three years ago, I happened to step into the Mac world via my first iOS project,
 <span style="color:#657b83;">*SCM*</span>: 
 `Git`, `Perforce`, `SVN`
 
-<span style="color:#657b83;">*Daily Build*</span>: 
+<span style="color:#657b83;">*Database*</span>: 
 `MySQL`, `Oracle`, `Postgres`
 
 <span style="color:#657b83;">*Agile*</span>: 
