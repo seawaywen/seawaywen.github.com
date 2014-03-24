@@ -4,7 +4,7 @@
   <title><![CDATA[Kelvin Li]]></title>
   <link href="http://seawaywen.github.com/atom.xml" rel="self"/>
   <link href="http://seawaywen.github.com/"/>
-  <updated>2012-12-10T11:14:38+08:00</updated>
+  <updated>2014-03-24T15:25:47+08:00</updated>
   <id>http://seawaywen.github.com/</id>
   <author>
     <name><![CDATA[Kelvin Li]]></name>
@@ -12,6 +12,18 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[python Segmentation fault on MacOSX 10.9]]></title>
+    <link href="http://seawaywen.github.com/blog/2014/03/24/python-segmentation-fault-on-macosx-10-dot-9/"/>
+    <updated>2014-03-24T15:23:00+08:00</updated>
+    <id>http://seawaywen.github.com/blog/2014/03/24/python-segmentation-fault-on-macosx-10-dot-9</id>
+    <content type="html"><![CDATA[<p>How to fix python on Mac OS X 10.9 with following issue:
+Segmentation fault: 11</p>
+
+<p>http://bugs.python.org/file32324/patch_readline_issue_18458.sh</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[QT workshop topics]]></title>
@@ -1378,20 +1390,6 @@ launchctl setenv PATH $PATH
 
 
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[How to setup the Dyndns on the TimeCapsule]]></title>
-    <link href="http://seawaywen.github.com/blog/2011/04/15/how-to-setup-the-dyndns-on-the-timecapsule/"/>
-    <updated>2011-04-15T16:39:00+08:00</updated>
-    <id>http://seawaywen.github.com/blog/2011/04/15/how-to-setup-the-dyndns-on-the-timecapsule</id>
-    <content type="html"><![CDATA[<p>I&#8217;ve bought the Dynamic DNS service from <a href="http://www.dyndns.com">DynDNS</a>, and I&#8217;d like the host my own Mac mini with this service, so that I can access my server out of home.</p>
-
-<p>I hsot my home network with TimeCapsule which is Apple&#8217;s router product.</p>
-
-<p>I refer to the following link to setup DynDNS server succesfully:<br/>
-<a href="http://www.dyndns.com/support/kb/apple_airport_with_custom_dns.html">http://www.dyndns.com/support/kb/apple_airport_with_custom_dns.html</a></p>
 ]]></content>
   </entry>
   

@@ -9,7 +9,7 @@
   <meta name="author" content="Kelvin Li">
 
   
-  <meta name="description" content="很多情况下，我们从网上得到的是一个纯C的代码包，他们这些库，往往是各种平台通用，代码包svn checkout出来后，里面有makefile, vcproject file 等。 但往往我们先README看过之后，通过 ./configure make make install &hellip;">
+  <meta name="description" content="When you tried to delete all files with the name abc.txt under the folder /home/kelvin, try the following commands(one of them works): find /home/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +83,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2012/07/22/delete-files-with-find-results/">Delete Files With Find Results</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-22T12:48:00+08:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>When you tried to delete all files with the name abc.txt under the folder /home/kelvin, try the following commands(one of them works):</p>
+
+<pre><code>find /home/kelvin -name abc.txt | xargs rm -rf
+find /home//kelvin -name abc.txt -exec rm -fv {} \;
+</code></pre>
+
+<p>Refer the doc: <a href="http://www.linuxsir.org/main/?q=node/137">http://www.linuxsir.org/main/?q=node/137</a></p>
+
+<p>Done.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -689,49 +735,6 @@ launchctl setenv PATH $PATH
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/blog/2011/04/15/how-to-setup-the-dyndns-on-the-timecapsule/">How to Setup the Dyndns on the TimeCapsule</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-04-15T16:39:00+08:00" pubdate data-updated="true">Apr 15<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&#8217;ve bought the Dynamic DNS service from <a href="http://www.dyndns.com">DynDNS</a>, and I&#8217;d like the host my own Mac mini with this service, so that I can access my server out of home.</p>
-
-<p>I hsot my home network with TimeCapsule which is Apple&#8217;s router product.</p>
-
-<p>I refer to the following link to setup DynDNS server succesfully:<br/>
-<a href="http://www.dyndns.com/support/kb/apple_airport_with_custom_dns.html">http://www.dyndns.com/support/kb/apple_airport_with_custom_dns.html</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -749,6 +752,10 @@ launchctl setenv PATH $PATH
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/03/24/python-segmentation-fault-on-macosx-10-dot-9/">python Segmentation fault on MacOSX 10.9</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/12/06/qt-workshop-topics/">QT workshop topics</a>
       </li>
     
@@ -762,10 +769,6 @@ launchctl setenv PATH $PATH
     
       <li class="post">
         <a href="/blog/2012/09/03/how-to-setup-a-https-site/">How to setup a HTTPS site</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/08/29/tips-for-git-repository-migration-to-other-server/">Tips for git repository migration to other server</a>
       </li>
     
   </ul>
@@ -811,7 +814,7 @@ launchctl setenv PATH $PATH
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Kelvin Li @memodir
+  Copyright &copy; 2014 - Kelvin Li @memodir
   <!--span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span-->
 </p>
 

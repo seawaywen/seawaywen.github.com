@@ -9,7 +9,9 @@
   <meta name="author" content="Kelvin Li">
 
   
-  <meta name="description" content="Here are the workshop topics we are going to have recently in QT Beijing. This goala of this post is to consolidation, revise all of the information &hellip;">
+  <meta name="description" content="How to fix python on Mac OS X 10.9 with following issue:
+Segmentation fault: 11 http://bugs.python.org/file32324/patch_readline_issue_18458.sh
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +85,47 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2014/03/24/python-segmentation-fault-on-macosx-10-dot-9/">Python Segmentation Fault on MacOSX 10.9</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-24T15:23:00+08:00" pubdate data-updated="true">Mar 24<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>How to fix python on Mac OS X 10.9 with following issue:
+Segmentation fault: 11</p>
+
+<p>http://bugs.python.org/file32324/patch_readline_issue_18458.sh</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -697,52 +740,6 @@ createdb mydb
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/blog/2012/07/22/delete-files-with-find-results/">Delete Files With Find Results</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-22T12:48:00+08:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>When you tried to delete all files with the name abc.txt under the folder /home/kelvin, try the following commands(one of them works):</p>
-
-<pre><code>find /home/kelvin -name abc.txt | xargs rm -rf
-find /home//kelvin -name abc.txt -exec rm -fv {} \;
-</code></pre>
-
-<p>Refer the doc: <a href="http://www.linuxsir.org/main/?q=node/137">http://www.linuxsir.org/main/?q=node/137</a></p>
-
-<p>Done.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -758,6 +755,10 @@ find /home//kelvin -name abc.txt -exec rm -fv {} \;
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/03/24/python-segmentation-fault-on-macosx-10-dot-9/">python Segmentation fault on MacOSX 10.9</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/12/06/qt-workshop-topics/">QT workshop topics</a>
       </li>
     
@@ -771,10 +772,6 @@ find /home//kelvin -name abc.txt -exec rm -fv {} \;
     
       <li class="post">
         <a href="/blog/2012/09/03/how-to-setup-a-https-site/">How to setup a HTTPS site</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/08/29/tips-for-git-repository-migration-to-other-server/">Tips for git repository migration to other server</a>
       </li>
     
   </ul>
@@ -820,7 +817,7 @@ find /home//kelvin -name abc.txt -exec rm -fv {} \;
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Kelvin Li @memodir
+  Copyright &copy; 2014 - Kelvin Li @memodir
   <!--span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span-->
 </p>
 
